@@ -4,6 +4,9 @@ import Auth from '@okta/okta-vue'
 import Main from '@/views/Main'
 import Profile from '@/views/Profile'
 import Login from '@/components/Login'
+import BoardList from '@/components/BoardList'
+import PinList from '@/components/PinList'
+
 import config from '../config'
 
 Vue.use(Router)
@@ -23,12 +26,24 @@ const router = new Router({
       component: Main
     },
     {
-      path: '/profile',
+      path: '/:id',
       name: 'Profile',
       component: Profile,
       meta: {
-        requiresAuth: true
-      }
+        requiresAuth: false // Change when ready
+      },
+      children: [
+        {
+          path: 'boards',
+          name: 'boards',
+          component: BoardList
+        },
+        {
+          path: 'pins',
+          name: 'pins',
+          component: PinList
+        }
+      ]
     },
     {
       path: '/login',

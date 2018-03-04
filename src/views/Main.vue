@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div app>
     <Header></Header>
-    <!-- Insert Cards -->
-    <Card v-for="i in 5" :key="i" :url="url"></Card>
+    <!-- Insert MasonryList -->
+    <div class="main-container">
+
+    </div>
 
     <Footer></Footer>
   </div>
@@ -11,7 +13,6 @@
 <script>
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import Card from '@/components/Card'
 
 /**
  * The state of this component should be to pull in all cards from api
@@ -20,8 +21,7 @@ import Card from '@/components/Card'
 export default {
   components: {
     Header,
-    Footer,
-    Card
+    Footer
   },
   data () {
     return {
@@ -31,6 +31,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.main-container {
+  margin-top: 70px;
+}
 </style>

@@ -1,11 +1,11 @@
 <template>
-  <v-toolbar app>
+  <v-toolbar color="primary" dark app>
     <v-toolbar-side-icon></v-toolbar-side-icon>
     <v-toolbar-title>{{title}}</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat to="/">Home</v-btn>
-      <v-btn flat to="/profile">Profile</v-btn>
+      <v-btn flat :to="{name: 'Profile', params: { id: 'userID' } }">Profile</v-btn>
       <v-btn
         flat
         v-if='authenticated'
