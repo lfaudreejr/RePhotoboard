@@ -1,14 +1,14 @@
 <template>
-  <v-container fluid class="container">
+  <div class="profile-container">
     <Header></Header>
 
     <section class="profile-header">
       <v-layout row>
-        <v-flex xs12 sm6 offset-sm1><span class="display-2">Larry Faudree</span></v-flex>
-        <v-flex xs12 sm3 offset-sm4><img src="@/assets/logo.png"></v-flex>
+        <v-flex xs5 offset-xs1 sm4 offset-sm2><span class="display-2">Larry Faudree</span></v-flex>
+        <v-flex xs5 offset-xs1 sm4 offset-sm2><img src="@/assets/logo.png"></v-flex>
       </v-layout>
       <v-layout row>
-        <v-flex xs12>
+        <v-flex xs12 sm10 offset-sm2>
           <div>
             <v-btn flat :to="{ name: 'boards' }" color="primary">Boards</v-btn>
             <v-btn flat :to="{ name: 'pins' }" color="primary">Pins</v-btn>
@@ -17,14 +17,16 @@
       </v-layout>
     </section>
 
-    <section class="profile-content">
-      <v-fade-transition>
-        <router-view></router-view>
-      </v-fade-transition>
-    </section>
+    <!-- <v-container> -->
+      <section>
+        <v-slide-x-transition>
+          <router-view></router-view>
+        </v-slide-x-transition>
+      </section>
+    <!-- </v-container> -->
 
     <Footer></Footer>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -42,15 +44,16 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.profile-container {
   margin-top: 70px;
 }
 .profile-header {
-  max-width: 800px;
+  max-width: 900px;
   width: 100%;
   margin: 0 auto;
+  padding: 25px;
 }
 .profile-content {
-
+  margin: 0 auto;
 }
 </style>

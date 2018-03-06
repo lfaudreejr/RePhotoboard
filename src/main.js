@@ -2,7 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import { VueMasonryPlugin } from 'vue-masonry'
 import axios from 'axios'
 import App from './App'
 import router from './router'
@@ -17,7 +16,6 @@ Vue.use(Vuetify, { theme: {
   info: '#2196f3',
   success: '#4caf50'
 }})
-Vue.use(VueMasonryPlugin)
 
 Vue.$http = axios
 Vue.config.productionTip = false

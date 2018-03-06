@@ -22,17 +22,22 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'Main',
+      name: 'main',
       component: Main
     },
     {
       path: '/:id',
-      name: 'Profile',
+      name: 'profile',
       component: Profile,
       meta: {
         requiresAuth: false // Change when ready
       },
       children: [
+        {
+          path: '',
+          name: 'defaultProfileLanding',
+          component: BoardList
+        },
         {
           path: 'boards',
           name: 'boards',

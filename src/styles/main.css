@@ -1,0 +1,42 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.boardlist-container {
+  padding-bottom: 55px;
+}
+.card-wrapper {
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-bottom: 70px;
+}
+.card-item {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.card-item:hover {
+  background-color: #e1f5fe;
+}
+.card-title {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.card-inner {
+  width: 300px;
+  height: 199px;
+  border-radius: 8px;
+  background-color: #efefef;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  display: flex;
+}
+

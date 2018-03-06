@@ -3,7 +3,7 @@
     <Header></Header>
     <!-- Insert MasonryList -->
     <div class="main-container">
-
+      <masonry-grid></masonry-grid>
     </div>
 
     <Footer></Footer>
@@ -13,6 +13,7 @@
 <script>
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import MasonryGrid from '@/components/MasonryGrid'
 
 /**
  * The state of this component should be to pull in all cards from api
@@ -21,7 +22,8 @@ import Footer from '@/components/Footer'
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    MasonryGrid
   },
   data () {
     return {

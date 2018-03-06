@@ -5,7 +5,7 @@
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat to="/">Home</v-btn>
-      <v-btn flat :to="{name: 'Profile', params: { id: 'userID' } }">Profile</v-btn>
+      <v-btn flat :to="{name: 'defaultProfileLanding', params: { id: 'fake_id' } }">Profile</v-btn>
       <v-btn
         flat
         v-if='authenticated'
