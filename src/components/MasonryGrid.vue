@@ -1,35 +1,43 @@
 <template>
-  <div class="grid-container">
-    <div class="grid" ref="grid">
-      <div class="grid-sizer"></div>
-      <div class="grid-item" v-for="(i, ix) in images" :key="ix">
-        <img :src="i"/>
-      </div>
-    </div>
-  </div>
+  <v-container fluid class="grid-container">
+    <v-layout row wrap class="grid" ref="grid">
+        <v-flex xs12 sm2 md2 class="grid-sizer"></v-flex>
+        <v-flex xs12 sm2 md2 class="grid-item" v-for="(i, ix) in pins" :key="ix">
+          <!-- <img :src="i"/> -->
+          <masonry-grid-pin :pin="i"></masonry-grid-pin>
+        </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
 import Masonry from 'masonry-layout'
 import imagesLoaded from 'imagesloaded'
+import MasonryGridPin from '@/components/MasonryGridPin'
 
 export default {
+  components: {
+    MasonryGridPin
+  },
   data () {
     return {
-      images: [
-        `https://unsplash.it/200/300/?random=${Math.random()}`,
-        `https://unsplash.it/200/100/?random=${Math.random()}`,
-        `https://unsplash.it/200/400/?random=${Math.random()}`,
-        `https://unsplash.it/200/250/?random=${Math.random()}`,
-        `https://unsplash.it/200/250/?random=${Math.random()}`,
-        `https://unsplash.it/200/250/?random=${Math.random()}`,
-        `https://unsplash.it/200/250/?random=${Math.random()}`,
-        `https://unsplash.it/200/250/?random=${Math.random()}`,
-        `https://unsplash.it/200/250/?random=${Math.random()}`,
-        `https://unsplash.it/200/250/?random=${Math.random()}`,
-        `https://unsplash.it/200/250/?random=${Math.random()}`,
-        `https://unsplash.it/200/250/?random=${Math.random()}`,
-        `https://unsplash.it/200/250/?random=${Math.random()}`
+      pins: [
+        {
+          title: 'A title',
+          picture: `https://unsplash.it/200/300/?random=${Math.random()}`
+        },
+        {
+          title: 'A title',
+          picture: `https://unsplash.it/200/300/?random=${Math.random()}`
+        },
+        {
+          title: 'A title',
+          picture: `https://unsplash.it/200/300/?random=${Math.random()}`
+        },
+        {
+          title: 'A title',
+          picture: `https://unsplash.it/200/300/?random=${Math.random()}`
+        }
       ]
     }
   },
@@ -54,8 +62,8 @@ export default {
 .grid {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-flow: column wrap;
+  /* display: flex; */
+  /* flex-flow: wrap; */
 }
 
 /* clear fix */
@@ -69,7 +77,7 @@ export default {
 
 .grid-sizer,
 .grid-item {
-  width: 16.6666%;
+  /* width: 16.6666%; */
   padding: 3px;
 }
 

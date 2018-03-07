@@ -2,9 +2,9 @@
   <div app>
     <Header></Header>
     <!-- Insert MasonryList -->
-    <div class="main-container">
+    <v-container fluid class="main-container">
       <masonry-grid></masonry-grid>
-    </div>
+    </v-container>
 
     <Footer></Footer>
   </div>

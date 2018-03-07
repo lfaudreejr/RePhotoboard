@@ -19,7 +19,7 @@
   cursor: pointer;
 }
 .card-item:hover {
-  background-color: #e1f5fe;
+  background-color: #EEEEEE;
 }
 .card-title {
   padding-top: 12px;
@@ -33,7 +33,7 @@
   width: 300px;
   height: 199px;
   border-radius: 8px;
-  background-color: #efefef;
+  background-color: #BDBDBD;
   justify-content: center;
   align-items: center;
   max-width: 100%;
