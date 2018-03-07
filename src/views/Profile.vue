@@ -18,11 +18,11 @@
     </section>
 
     <!-- <v-container> -->
-      <section>
-        <v-slide-x-transition>
+      <v-container>
+        <transition name="router-anim">
           <router-view></router-view>
-        </v-slide-x-transition>
-      </section>
+        </transition>
+      </v-container>
     <!-- </v-container> -->
 
     <Footer></Footer>
@@ -55,5 +55,33 @@ export default {
 }
 .profile-content {
   margin: 0 auto;
+}
+.router-anim-enter-active {
+  animation: coming 1s;
+  animation-delay: 1s;
+  opacity: 0;
+}
+.router-anim-leave-active {
+  animation: going 1s;
+}
+
+@keyframes going {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+}
+@keyframes coming {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 </style>

@@ -26,6 +26,14 @@ const router = new Router({
       component: Main
     },
     {
+      path: '/login',
+      component: Login
+    },
+    {
+      path: '/implicit/callback',
+      component: Auth.handleCallback()
+    },
+    {
       path: '/:id',
       name: 'profile',
       component: Profile,
@@ -49,14 +57,6 @@ const router = new Router({
           component: PinList
         }
       ]
-    },
-    {
-      path: '/login',
-      component: Login
-    },
-    {
-      path: '/implicit/callback',
-      component: Auth.handleCallback()
     }
   ]
 })

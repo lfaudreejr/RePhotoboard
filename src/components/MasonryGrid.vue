@@ -3,7 +3,6 @@
     <v-layout row wrap class="grid" ref="grid">
         <v-flex xs12 sm2 md2 class="grid-sizer"></v-flex>
         <v-flex xs12 sm2 md2 class="grid-item" v-for="(i, ix) in pins" :key="ix">
-          <!-- <img :src="i"/> -->
           <masonry-grid-pin :pin="i"></masonry-grid-pin>
         </v-flex>
     </v-layout>

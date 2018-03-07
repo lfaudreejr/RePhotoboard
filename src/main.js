@@ -8,9 +8,9 @@ import router from './router'
 import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify, { theme: {
-  primary: '#03A9F4',
-  secondary: '#0091EA',
-  accent: '#18FFFF',
+  primary: '#2196f3',
+  secondary: '#0d47a1',
+  accent: '#ffc400',
   error: '#f44336',
   warning: '#ffeb3b',
   info: '#2196f3',

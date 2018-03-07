@@ -9,15 +9,16 @@
                 class="pin-save-btn"
                 absolute
                 color="error"
-                flat
-                icon
+                round
                 right
                 v-show="active"
-              >
+              > Save
                 <v-icon>favorite</v-icon>
               </v-btn>
             </v-fab-transition>
-            <img :src="pin.picture" alt="A picture">
+            <div class="img-wrapper">
+              <img :src="pin.picture" alt="A picture">
+            </div>
           </div>
           <v-container class="masonrypin-footer">
             <div class="masonrypin-footer-title">
@@ -76,7 +77,21 @@ export default {
 .masonrypin-inner {
   margin: 0 auto;
 }
+.masonrypin-wrapper:hover .img-wrapper {
+  filter: brightness(.5);
+  /* -webkit-filter: brightness(.5); */
+}
 .masonrypin-img {
   border-radius: 8px;
+  /* transition: all .2s ease-in-out; */
+  /* -webkit-transition: all .2s ease-in-out; */
+  /* -moz-transition: all .2s ease-in-out; */
+  /* -o-transition: all .2s ease-in-out; */
+  /* transform: translateX(0); */
+  /* -webkit-transform: translateX(0); */
+}
+.pin-save-btn {
+  z-index: 100;
+  margin-top: 5px;
 }
 </style>

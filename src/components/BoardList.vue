@@ -1,5 +1,5 @@
 <template>
-  <v-container class="boardlist-container">
+  <v-container class="boardlist-container" :key=name>
     <v-layout row wrap>
       <v-flex xs12 sm6 md4>
         <create-card></create-card>
@@ -17,6 +17,7 @@ import CreateCard from '@/components/CreateCard'
 import ContentCard from '@/components/ContentCard'
 
 export default {
+  name: 'board-list',
   components: {
     Board,
     CreateCard,

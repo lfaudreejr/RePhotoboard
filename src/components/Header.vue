@@ -3,9 +3,9 @@
     <v-toolbar-side-icon></v-toolbar-side-icon>
     <v-toolbar-title>{{title}}</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn flat to="/">Home</v-btn>
-      <v-btn flat :to="{name: 'defaultProfileLanding', params: { id: 'fake_id' } }">Profile</v-btn>
+    <!-- <v-toolbar-items class="hidden-sm-and-down"> -->
+      <v-btn round flat to="/">Home</v-btn>
+      <v-btn round flat :to="{name: 'defaultProfileLanding', params: { id: 'fake_id' } }">Profile</v-btn>
       <v-btn
         flat
         v-if='authenticated'
@@ -15,12 +15,13 @@
       </v-btn>
       <v-btn
         flat
+        round
         v-if='!authenticated'
         to="/login"
       >
         Login
       </v-btn>
-    </v-toolbar-items>
+    <!-- </v-toolbar-items> -->
   </v-toolbar>
 </template>
 
