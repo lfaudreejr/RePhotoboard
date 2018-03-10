@@ -1,12 +1,9 @@
-<template>
-  <v-container fluid class="grid-container">
-    <v-layout row wrap class="grid" ref="grid">
-        <v-flex xs12 sm2 md2 class="grid-sizer"></v-flex>
-        <v-flex xs12 sm2 md2 class="grid-item" v-for="(i, ix) in pins" :key="ix">
-          <masonry-grid-pin :pin="i"></masonry-grid-pin>
-        </v-flex>
-    </v-layout>
-  </v-container>
+<template lang='pug'>
+  v-container.grid-container(fluid)
+    v-layout.grid.row.wrap(ref="grid")
+      v-flex.grid-sizer.xs12.sm2.md2
+      v-flex.grid-item.xs12.sm2.md2(v-for="(i, ix) in pins" :key="ix")
+        masonry-grid-pin(:pin="i")
 </template>
 
 <script>
@@ -18,26 +15,13 @@ export default {
   components: {
     MasonryGridPin
   },
+  props: {
+    pins: {
+      type: Array
+    }
+  },
   data () {
     return {
-      pins: [
-        {
-          title: 'A title',
-          picture: `https://unsplash.it/200/300/?random=${Math.random()}`
-        },
-        {
-          title: 'A title',
-          picture: `https://unsplash.it/200/300/?random=${Math.random()}`
-        },
-        {
-          title: 'A title',
-          picture: `https://unsplash.it/200/300/?random=${Math.random()}`
-        },
-        {
-          title: 'A title',
-          picture: `https://unsplash.it/200/300/?random=${Math.random()}`
-        }
-      ]
     }
   },
   mounted: function () {

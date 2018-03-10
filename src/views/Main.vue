@@ -1,29 +1,31 @@
-<template>
-  <div app>
-    <Header></Header>
+<template lang='pug'>
+  div
     <!-- Insert MasonryList -->
-    <v-container fluid class="main-container">
-      <masonry-grid></masonry-grid>
-    </v-container>
+    v-container.main-container(fluid)
+      masonry-grid(:pins='pins')
 
-    <Footer></Footer>
-  </div>
 </template>
 
 <script>
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import MasonryGrid from '@/components/MasonryGrid'
+import { mapGetters } from 'vuex'
 
 /**
  * The state of this component should be to pull in all cards from api
  */
 
 export default {
+  name: 'main',
   components: {
-    Header,
-    Footer,
     MasonryGrid
+  },
+  computed: {
+    ...mapGetters({
+      pins: 'pins/pins'
+    })
+  },
+  mounted () {
+    this.$store.dispatch('pins/getPins')
   },
   data () {
     return {

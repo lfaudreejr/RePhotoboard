@@ -1,7 +1,6 @@
-<template>
-  <div class="login">
-    <div id="okta-signin-container"></div>
-  </div>
+<template lang='pug'>
+  div.login
+    div#okta-signin-container
 </template>
 
 <script>

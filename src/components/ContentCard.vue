@@ -1,16 +1,12 @@
-<template>
-  <div class="card-wrapper">
-    <div class="card-item">
+<template lang='pug'>
+  div.card-wrapper
+    div.card-item
       <!-- wrap in a router -->
-      <div class="card-inner">
+      div.card-inner
         <!-- Should contain 6 images -->
-        <div class="card-inner-wrapper">
-          <board-content-grid></board-content-grid>
-        </div>
-      </div>
-      <div class="card-title">Fake Card</div>
-    </div>
-  </div>
+        div.card-inner-wrapper
+          board-content-grid
+      div.card-title {{board.title}}
 </template>
 
 <script>
@@ -19,6 +15,14 @@ import BoardContentGrid from '@/components/BoardContentGrid'
 export default {
   components: {
     BoardContentGrid
+  },
+  props: {
+    board: {
+      type: Object,
+      title: {
+        type: String
+      }
+    }
   }
 }
 </script>

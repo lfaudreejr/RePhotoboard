@@ -1,4 +1,4 @@
-import { fetchBoards } from '@/api'
+import { fetchBoards } from '@/api/fake.js'
 
 const getBoards = (context) => {
   fetchBoards.then((response) => {

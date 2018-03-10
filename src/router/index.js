@@ -2,10 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Auth from '@okta/okta-vue'
 import Main from '@/views/Main'
-import Profile from '@/views/Profile'
-import Login from '@/components/Login'
-import BoardList from '@/components/BoardList'
-import PinList from '@/components/PinList'
 
 import config from '../config'
 
@@ -27,16 +23,24 @@ const router = new Router({
     },
     {
       path: '/login',
-      component: Login
+      component: () => import('@/components/Login')
     },
     {
       path: '/implicit/callback',
       component: Auth.handleCallback()
     },
     {
+      path: '/pin/:pin',
+      name: 'pin',
+      component: () => import('@/components/Pin'),
+      beforeRouteEnter (to, from, next) {
+        next()
+      }
+    },
+    {
       path: '/:id',
       name: 'profile',
-      component: Profile,
+      component: () => import('@/views/Profile'),
       meta: {
         requiresAuth: false // Change when ready
       },
@@ -44,17 +48,17 @@ const router = new Router({
         {
           path: '',
           name: 'defaultProfileLanding',
-          component: BoardList
+          component: () => import('@/components/BoardList')
         },
         {
           path: 'boards',
           name: 'boards',
-          component: BoardList
+          component: () => import('@/components/BoardList')
         },
         {
           path: 'pins',
           name: 'pins',
-          component: PinList
+          component: () => import('@/components/PinList')
         }
       ]
     }

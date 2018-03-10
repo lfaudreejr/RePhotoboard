@@ -1,7 +1,6 @@
-<template>
-  <v-footer :fixed="fixed" app>
-    <span>&copy; 2017</span>
-  </v-footer>
+<template lang='pug'>
+  v-footer.app(:fixed="fixed")
+    span &copy; 2017
 </template>
 
 <script>

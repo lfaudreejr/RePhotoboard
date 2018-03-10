@@ -1,34 +1,17 @@
-<template>
-  <div>
-    <div>
-      <div class="masonrypin-wrapper" @mouseover="mouseOver(true)" @mouseout="mouseOver(false)">
-        <div class="masonrypin-inner">
-          <div class="masonrypin-img">
-            <v-fab-transition>
-              <v-btn
-                class="pin-save-btn"
-                absolute
-                color="error"
-                round
-                right
-                v-show="active"
-              > Save
-                <v-icon>favorite</v-icon>
-              </v-btn>
-            </v-fab-transition>
-            <div class="img-wrapper">
-              <img :src="pin.picture" alt="A picture">
-            </div>
-          </div>
-          <v-container class="masonrypin-footer">
-            <div class="masonrypin-footer-title">
-              <h5>{{pin.title}}</h5>
-            </div>
-          </v-container>
-        </div>
-      </div>
-    </div>
-  </div>
+<template lang='pug'>
+  div
+    div.masonrypin-wrapper(@mouseover="mouseOver(true)" @mouseout="mouseOver(false)")
+      div.masonrypin-inner
+        div.masonrypin-img
+          v-fab-transition
+            v-btn.pin-save-btn(absolute color="error" round right v-show="active") Save
+              v-icon favorite
+          router-link(:to="{name: 'pin', params: { pin: pin._id }}")
+            div.img-wrapper
+              img(:src="pin.picture" alt="A picture")
+        v-container.masonrypin-footer
+          div.masonrypin-footer-title
+            h5 {{pin.title}}
 </template>
 
 <script>

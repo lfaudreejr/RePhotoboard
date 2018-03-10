@@ -1,12 +1,9 @@
-<template>
-  <v-container class="pin-list-wrapper" :key=name>
+<template lang='pug'>
+  v-container.pin-list-wrapper(:key=name)
     <!-- <v-layout row wrap> -->
       <!-- <v-flex xs12> -->
         <!-- Replace with just a pin image -->
-        <masonry-grid></masonry-grid>
-      <!-- </v-flex> -->
-    <!-- </v-layout> -->
-  </v-container>
+        masonry-grid(:pins="pins")
 </template>
 
 <script>
@@ -16,6 +13,11 @@ export default {
   name: 'pin-list',
   components: {
     MasonryGrid
+  },
+  props: {
+    pins: {
+      type: Array
+    }
   }
 }
 </script>
