@@ -1,7 +1,7 @@
 <template lang='pug'>
   div
     <!-- Insert MasonryList -->
-    v-container.main-container(fluid)
+    v-container.app-container.fluid
       masonry-grid(:pins='pins')
 
 </template>
@@ -24,6 +24,13 @@ export default {
       pins: 'pins/pins'
     })
   },
+  methods: {
+    // getPins () {
+    //   this.$http.get('/api/pin')
+    //     .then(data => { this.pins = data.data.pins })
+    //     .catch(err => { console.error(err) })
+    // }
+  },
   mounted () {
     this.$store.dispatch('pins/getPins')
   },
@@ -36,7 +43,5 @@ export default {
 </script>
 
 <style scoped>
-.main-container {
-  margin-top: 70px;
-}
+
 </style>

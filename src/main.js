@@ -18,7 +18,7 @@ Vue.use(Vuetify, { theme: {
   success: '#4caf50'
 }})
 
-Vue.$http = axios
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

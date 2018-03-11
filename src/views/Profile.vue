@@ -1,10 +1,10 @@
 <template lang='pug'>
-  div.profile-container
+  div.app-container
 
     section.profile-header
       v-layout(row)
         v-flex(xs5 offset-xs1 sm4 offset-sm2)
-          span.display-2 Larry Faudree
+          span.display-2 {{user.name}}
         v-flex(xs5 offset-xs1 sm4 offset-sm2)
           img(src="@/assets/logo.png")
       v-layout(row)
@@ -27,7 +27,8 @@ export default {
   computed: {
     ...mapGetters({
       boards: 'boards/boards',
-      pins: 'pins/pins'
+      pins: 'pins/pins',
+      user: 'user/user'
     })
   },
   mounted () {
@@ -38,9 +39,6 @@ export default {
 </script>
 
 <style scoped>
-.profile-container {
-  margin-top: 70px;
-}
 .profile-header {
   max-width: 900px;
   width: 100%;

@@ -2,16 +2,15 @@
   div
     div.masonrypin-wrapper(@mouseover="mouseOver(true)" @mouseout="mouseOver(false)")
       div.masonrypin-inner
-        div.masonrypin-img
-          v-fab-transition
-            v-btn.pin-save-btn(absolute color="error" round right v-show="active") Save
-              v-icon favorite
-          router-link(:to="{name: 'pin', params: { pin: pin._id }}")
-            div.img-wrapper
-              img(:src="pin.picture" alt="A picture")
-        v-container.masonrypin-footer
-          div.masonrypin-footer-title
-            h5 {{pin.title}}
+        v-fab-transition
+          v-btn.pin-save-btn(absolute small color="error" v-show="active") Save
+            v-icon favorite
+        div.masonrypin-img(@click="visitPin()")
+          div.img-wrapper
+              img(:src="pin.picture" :alt="pin.description")
+          v-container.masonrypin-footer
+            div.masonrypin-footer-title
+              h5 {{pin.title}}
 </template>
 
 <script>
@@ -36,6 +35,9 @@ export default {
   methods: {
     mouseOver: function (method) {
       this.active = method
+    },
+    visitPin: function (id) {
+      this.$router.push({name: 'pin', params: { pin: this.pin._id }})
     }
   },
   data () {
@@ -48,11 +50,11 @@ export default {
 
 <style>
 .masonrypin-wrapper {
-  color: #746d6a;
-  text-shadow: 0 1px #fff;
-  cursor: zoom-in;
   border-radius: 8px;
+  color: #746d6a;
+  cursor: zoom-in;
   padding: 8px;
+  text-shadow: 0 1px #fff;
 }
 .masonrypin-wrapper:hover {
   background: #EEEEEE;

@@ -1,5 +1,5 @@
 <template lang='pug'>
-  v-card
+  v-card(flat)
     v-card-text Board Title
     v-layout
       v-flex(xs12)

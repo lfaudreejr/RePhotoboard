@@ -40,7 +40,8 @@ export default {
 
       this.widget.renderEl(
         { el: '#okta-signin-container' },
-        () => {},
+        () => {
+        },
         (err) => {
           throw err
         }

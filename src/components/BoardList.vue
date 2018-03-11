@@ -4,12 +4,12 @@
       v-flex(xs12 sm6 md4)
         create-card
       v-flex(xs12 sm6 md4 v-for="(board, idx) in boards" :key="idx")
-        content-card(:board="board")
+        board-content-card(:board="board")
 </template>
 
 <script>
 import CreateCard from '@/components/CreateCard'
-import ContentCard from '@/components/ContentCard'
+import BoardContentCard from '@/components/BoardContentCard'
 
 export default {
   name: 'board-list',
@@ -20,7 +20,7 @@ export default {
   },
   components: {
     CreateCard,
-    ContentCard
+    BoardContentCard
   }
 }
 </script>

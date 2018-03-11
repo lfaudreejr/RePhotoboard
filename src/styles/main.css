@@ -3,6 +3,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.app-container {
+  margin-top: 70px;
+}
 .boardlist-container {
   padding-bottom: 55px;
 }

@@ -1,5 +1,5 @@
 <template lang='pug'>
-  v-container.pin-list-wrapper(:key=name)
+  div(:key=name)
     <!-- <v-layout row wrap> -->
       <!-- <v-flex xs12> -->
         <!-- Replace with just a pin image -->

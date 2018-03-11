@@ -1,11 +1,11 @@
 <template lang='pug'>
-  div.card-wrapper
+  div.card-wrapper(@click='visitBoard()')
     div.card-item
       <!-- wrap in a router -->
       div.card-inner
         <!-- Should contain 6 images -->
         div.card-inner-wrapper
-          board-content-grid
+          board-content-grid(:pins='board.pins')
       div.card-title {{board.title}}
 </template>
 
@@ -15,6 +15,11 @@ import BoardContentGrid from '@/components/BoardContentGrid'
 export default {
   components: {
     BoardContentGrid
+  },
+  methods: {
+    visitBoard: function () {
+      this.$router.push({name: 'board', params: { board: this.board._id }})
+    }
   },
   props: {
     board: {

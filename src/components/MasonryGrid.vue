@@ -1,8 +1,8 @@
 <template lang='pug'>
   v-container.grid-container(fluid)
-    v-layout.grid.row.wrap(ref="grid")
-      v-flex.grid-sizer.xs12.sm2.md2
-      v-flex.grid-item.xs12.sm2.md2(v-for="(i, ix) in pins" :key="ix")
+    v-layout.grid(row wrap ref="grid")
+      v-flex.grid-sizer(xs12 sm2 md2)
+      v-flex.grid-item(xs12 sm2 md2 v-for="(i, ix) in pins" :key="ix")
         masonry-grid-pin(:pin="i")
 </template>
 

@@ -23,7 +23,7 @@ const router = new Router({
     },
     {
       path: '/login',
-      component: () => import('@/components/Login')
+      component: () => import('@/views/Login')
     },
     {
       path: '/implicit/callback',
@@ -32,17 +32,13 @@ const router = new Router({
     {
       path: '/pin/:pin',
       name: 'pin',
-      component: () => import('@/components/Pin'),
-      beforeRouteEnter (to, from, next) {
-        next()
-      }
+      component: () => import('@/components/Pin')
     },
     {
       path: '/:id',
-      name: 'profile',
       component: () => import('@/views/Profile'),
       meta: {
-        requiresAuth: false // Change when ready
+        requiresAuth: true
       },
       children: [
         {
@@ -59,6 +55,11 @@ const router = new Router({
           path: 'pins',
           name: 'pins',
           component: () => import('@/components/PinList')
+        },
+        {
+          path: ':board',
+          name: 'board',
+          component: () => import('@/components/Board')
         }
       ]
     }
