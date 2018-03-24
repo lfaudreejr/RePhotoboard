@@ -8,6 +8,9 @@ import router from './router'
 import store from './store'
 import 'vuetify/dist/vuetify.min.css'
 
+import SocialButton from '@/components/SocialButton'
+import ReDialog from '@/components/ReDialog'
+
 Vue.use(Vuetify, { theme: {
   primary: '#2196f3',
   secondary: '#0d47a1',
@@ -17,6 +20,9 @@ Vue.use(Vuetify, { theme: {
   info: '#2196f3',
   success: '#4caf50'
 }})
+
+Vue.component('social-button', SocialButton)
+Vue.component('re-dialog', ReDialog)
 
 Vue.prototype.$http = axios
 Vue.config.productionTip = false

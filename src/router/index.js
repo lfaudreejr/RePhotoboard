@@ -1,33 +1,44 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Auth from '@okta/okta-vue'
-import Main from '@/views/Main'
+import Home from '@/views/Home'
 
-import config from '../config'
+import store from '@/store'
 
 Vue.use(Router)
-Vue.use(Auth, {
-  issuer: config.oidc.issuer,
-  client_id: config.oidc.clientId,
-  redirect_uri: config.oidc.redirectUri,
-  scope: config.oidc.scope
-})
+
+const checkAuth = (to, from, next) => {
+  if (store.getters['auth/isAuthenticated']) {
+    next()
+    return
+  }
+  next('/login')
+}
 
 const router = new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'main',
-      component: Main
+      name: 'home',
+      component: Home
     },
     {
       path: '/login',
       component: () => import('@/views/Login')
     },
     {
-      path: '/implicit/callback',
-      component: Auth.handleCallback()
+      path: '/register',
+      component: () => import('@/views/Register')
+    },
+    // {
+    //   path: '/connect/:provider',
+    //   component: () => import('@/components/ConnectPage'),
+    //   props: true
+    // },
+    {
+      path: '/auth/:provider/callback',
+      component: () => import('@/components/AuthCallback'),
+      props: true
     },
     {
       path: '/pin/:pin',
@@ -37,9 +48,7 @@ const router = new Router({
     {
       path: '/:id',
       component: () => import('@/views/Profile'),
-      meta: {
-        requiresAuth: true
-      },
+      beforeEnter: checkAuth,
       children: [
         {
           path: '',
@@ -57,7 +66,7 @@ const router = new Router({
           component: () => import('@/components/PinList')
         },
         {
-          path: ':board',
+          path: 'boards/:board',
           name: 'board',
           component: () => import('@/components/Board')
         }
@@ -65,15 +74,5 @@ const router = new Router({
     }
   ]
 })
-
-const onAuthRequired = async (from, to, next) => {
-  if (from.matched.some(record => record.meta.requiresAuth) && !(await Vue.prototype.$auth.isAuthenticated())) {
-    next({ path: '/login' })
-  } else {
-    next()
-  }
-}
-
-router.beforeEach(onAuthRequired)
 
 export default router

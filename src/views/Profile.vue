@@ -6,7 +6,7 @@
         v-flex(xs5 offset-xs1 sm4 offset-sm2)
           span.display-2 {{user.name}}
         v-flex(xs5 offset-xs1 sm4 offset-sm2)
-          img(src="@/assets/logo.png")
+          img(:src="user.profile")
       v-layout(row)
         v-flex(xs12 sm10 offset-sm2)
           div
@@ -26,14 +26,10 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      boards: 'boards/boards',
-      pins: 'pins/pins',
+      boards: 'user/boards',
+      pins: 'user/pins',
       user: 'user/user'
     })
-  },
-  mounted () {
-    this.$store.dispatch('boards/getBoards')
-    this.$store.dispatch('pins/getPins') // Should be get user pins
   }
 }
 </script>

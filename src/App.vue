@@ -1,24 +1,26 @@
 <template lang='pug'>
   v-app
-    Header
+    ReHeader(:authenticated='isAuthenticated')
     transition(name='router-anim' mode='out-in')
       router-view
-    Footer
+    ReFooter
 </template>
 
 <script>
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import { mapGetters } from 'vuex'
+import ReHeader from '@/components/ReHeader'
+import ReFooter from '@/components/ReFooter'
 
 export default {
   components: {
-    Header,
-    Footer
+    ReHeader,
+    ReFooter
   },
-  data () {
-    return {
-
-    }
+  computed: {
+    ...mapGetters({
+      isAuthenticated: 'auth/isAuthenticated',
+      authStatus: 'auth/authStatus'
+    })
   },
   name: 'App'
 }

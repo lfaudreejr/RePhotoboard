@@ -3,8 +3,8 @@ import getters from './getters'
 import mutations from './mutations'
 
 const state = {
-  pins: [],
-  pin: {}
+  token: localStorage.getItem('token') || false,
+  status: false
 }
 
 export default {

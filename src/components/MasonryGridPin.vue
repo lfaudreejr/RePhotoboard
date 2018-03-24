@@ -2,9 +2,8 @@
   div
     div.masonrypin-wrapper(@mouseover="mouseOver(true)" @mouseout="mouseOver(false)")
       div.masonrypin-inner
-        v-fab-transition
-          v-btn.pin-save-btn(absolute small color="error" v-show="active") Save
-            v-icon favorite
+        v-btn.pin-save-btn(absolute small color="error" v-show="active") SAVE
+            v-icon save
         div.masonrypin-img(@click="visitPin()")
           div.img-wrapper
               img(:src="pin.picture" :alt="pin.description")
@@ -19,16 +18,20 @@ export default {
     pin: {
       type: Object,
       title: {
-        type: String
+        type: String,
+        default: ''
       },
       picture: {
-        type: String
+        type: String,
+        default: ''
       },
       description: {
-        type: String
+        type: String,
+        default: ''
       },
       board: {
-        type: String
+        type: String,
+        default: ''
       }
     }
   },
@@ -37,7 +40,7 @@ export default {
       this.active = method
     },
     visitPin: function (id) {
-      this.$router.push({name: 'pin', params: { pin: this.pin._id }})
+      this.$router.push({name: 'pin', params: { pin: this.pin.id }})
     }
   },
   data () {

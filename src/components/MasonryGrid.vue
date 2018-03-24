@@ -1,8 +1,8 @@
 <template lang='pug'>
   v-container.grid-container(fluid)
     v-layout.grid(row wrap ref="grid")
-      v-flex.grid-sizer(xs12 sm2 md2)
-      v-flex.grid-item(xs12 sm2 md2 v-for="(i, ix) in pins" :key="ix")
+      v-flex.grid-sizer(xs6 sm2 md2)
+      v-flex.grid-item(xs6 sm2 md2 v-for="(i, ix) in pins" :key="ix")
         masonry-grid-pin(:pin="i")
 </template>
 
@@ -17,19 +17,20 @@ export default {
   },
   props: {
     pins: {
-      type: Array
+      type: Array,
+      default: []
     }
   },
   data () {
     return {
     }
   },
-  mounted: function () {
+  updated: function () {
     this.startMasonry()
   },
   methods: {
     startMasonry () {
-      const grid = document.querySelector('.grid')
+      const grid = this.$refs.grid
       this.$masonry = new Masonry(grid, {
         itemSelector: '.grid-item',
         columnWidth: '.grid-sizer',
@@ -61,6 +62,7 @@ export default {
 .grid-sizer,
 .grid-item {
   /* width: 16.6666%; */
+  /* width: 20%; */
   padding: 3px;
 }
 

@@ -15,7 +15,7 @@ import { mapGetters } from 'vuex'
  */
 
 export default {
-  name: 'main',
+  name: 'Home',
   components: {
     MasonryGrid
   },
@@ -24,15 +24,8 @@ export default {
       pins: 'pins/pins'
     })
   },
-  methods: {
-    // getPins () {
-    //   this.$http.get('/api/pin')
-    //     .then(data => { this.pins = data.data.pins })
-    //     .catch(err => { console.error(err) })
-    // }
-  },
-  mounted () {
-    this.$store.dispatch('pins/getPins')
+  async mounted () {
+    await this.$store.dispatch('pins/getPins')
   },
   data () {
     return {

@@ -1,8 +1,11 @@
 <template lang='pug'>
   v-container.app-container(fluid)
-    v-layout(row)
+
+    v-progress-circular(v-if='loading' indeterminate)
+
+    v-layout(v-else row)
       v-flex(x12 sm6 offset-sm3)
-        .pin-wrapper
+        div.pin-wrapper
           v-layout(row wrap)
             v-flex(xs12 sm6 md8)
               v-container.pin-img-container
@@ -12,29 +15,35 @@
                 v-btn.pin-save-btn(block small color="error") Save
                   v-icon favorite
                 h3 {{pin.title}}
-                p saved by: {{pin.saved_by.name}}
+                p saved by: {{pin.creator.username}}
                 p {{pin.description}}
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  methods: {
-    getPin () {
-      this.$http.get('/api/pin/' + this.$route.params.pin)
-        .then(data => {
-          this.pin = data.data.pin
-        })
-        .catch(err => {
-          console.error(err)
-        })
-    }
+  computed: {
+    ...mapGetters({
+      pin: 'pins/pin'
+    })
   },
-  mounted () {
-    this.getPin()
+  beforeMount () {
+    this.fetchData()
   },
   data () {
     return {
-      pin: {}
+      loading: true
+    }
+  },
+  methods: {
+    fetchData () {
+      this.$store.dispatch('pins/getPin', this.$route.params.pin).then(() => {
+        this.loading = false
+      }).catch(err => {
+        this.loading = false
+        console.log(err)
+      })
     }
   }
 }

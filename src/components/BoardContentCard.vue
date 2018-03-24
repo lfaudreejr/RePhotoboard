@@ -2,7 +2,7 @@
   div.card-wrapper(@click='visitBoard()')
     div.card-item
       <!-- wrap in a router -->
-      div.card-inner
+      div.m-0.p-0
         <!-- Should contain 6 images -->
         div.card-inner-wrapper
           board-content-grid(:pins='board.pins')
@@ -24,22 +24,24 @@ export default {
   props: {
     board: {
       type: Object,
+      default: {},
       title: {
-        type: String
+        type: String,
+        default: ''
       }
     }
+  },
+  mounted: function () {
+    console.log('Boards', this.board)
   }
 }
 </script>
 
-<style>
+<style scoped>
 .card-inner-wrapper {
-  background: #f4f4f4;
   color: #746d6a;
   text-shadow: 0 1px #fff;
-  border: 1px solid #ccc;
-  /* width: 100%; */
-  /* height: 100%; */
-  /* overflow: hidden; */
+  overflow: hidden;
+  height: 199px;
 }
 </style>
