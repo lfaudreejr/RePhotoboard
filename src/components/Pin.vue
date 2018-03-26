@@ -13,7 +13,7 @@
             v-flex(xs12 sm6 md4)
               v-container.pin-side-container
                 v-btn.pin-save-btn(block small color="error") Save
-                  v-icon favorite
+                  v-icon save
                 h3 {{pin.title}}
                 p saved by: {{pin.creator.username}}
                 p {{pin.description}}

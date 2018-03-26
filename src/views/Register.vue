@@ -45,7 +45,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Login',
+  name: 'Register',
   data () {
     return {
       valid: false,
@@ -107,7 +107,7 @@ export default {
 
 <style>
 .form-wrapper {
-  margin-top: 70px;
+  padding-top: 70px;
 }
 .form {
   border: 1px solid #2196f3;

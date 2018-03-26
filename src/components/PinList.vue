@@ -1,9 +1,8 @@
 <template lang='pug'>
-  v-container(:key=name)
-    v-layout(row wrap)
-      v-flex(xs12 sm6 md4)
-        PinCreateCard
-        <!-- Replace with just a pin image -->
+  div
+    div.pin-list
+      PinCreateCard
+          <!-- Replace with just a pin image -->
     masonry-grid(:pins="pins")
 </template>
 
@@ -28,4 +27,15 @@ export default {
 
 <style scoped>
 
+@media (min-width: 375px) {
+  .pin-list {
+    float: left;
+  }
+  /* clear fix */
+  .pin-list:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
 </style>

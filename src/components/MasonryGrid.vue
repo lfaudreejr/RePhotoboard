@@ -1,9 +1,10 @@
 <template lang='pug'>
-  v-container.grid-container(fluid)
-    v-layout.grid(row wrap ref="grid")
-      v-flex.grid-sizer(xs6 sm2 md2)
-      v-flex.grid-item(xs6 sm2 md2 v-for="(i, ix) in pins" :key="ix")
-        masonry-grid-pin(:pin="i")
+  div.grid-container
+    div.grid(row wrap ref="grid")
+      div.grid-sizer(xs6 sm2 md2)
+      div.grid-item(xs6 sm2 md2 v-for="(i, ix) in pins" :key="ix")
+        v-flex(xs12)
+          masonry-grid-pin(:pin="i")
 </template>
 
 <script>
@@ -61,9 +62,28 @@ export default {
 
 .grid-sizer,
 .grid-item {
-  /* width: 16.6666%; */
+  width: 16.6666%;
   /* width: 20%; */
-  padding: 3px;
+  /* padding: 3px; */
+}
+@media (max-width: 960px) {
+  .grid-sizer,
+  .grid-item {
+    width: 26.66%;
+  }
+}
+
+@media (max-width: 750px) {
+  .grid-sizer,
+  .grid-item {
+    width: 33.333%;
+  }
+}
+@media (max-width: 600px) {
+  .grid-sizer,
+  .grid-item {
+    width: 50%;
+  }
 }
 
 .grid-item {

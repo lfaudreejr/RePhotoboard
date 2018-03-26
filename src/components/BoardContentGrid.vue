@@ -4,16 +4,22 @@
       div.board-grid-sizer
       div.board-grid-item.btlr8
         img.board-grid-picture.btlr8(v-if="pins[0]" :src="pins[0].picture")
-      div.board-grid-item.grid-item--height2
+
+      div.board-grid-item.board-grid-item--height2
         img.board-grid-picture(v-if="pins[1]" :src="pins[0].picture")
-      div.board-grid-item.grid-item--height2.btrr8
+
+      div.board-grid-item.board-grid-item--height2.btrr8
         img.board-grid-picture.btrr8(v-if="pins[2]" :src="pins[0].picture")
-      div.board-grid-item.grid-item--height2.bblr8
+
+      div.board-grid-item.board-grid-item--height2.bblr8
         img.board-grid-picture.bblr8(v-if="pins[3]" :src="pins[0].picture")
+
       div.board-grid-item
         img.board-grid-picture(v-if="pins[4]" :src="pins[0].picture")
+
       div.board-grid-item.bbrr8
         img.board-grid-picture.bbrr8(v-if="pins[5]" :src="pins[0].picture")
+
 </template>
 
 <script>
@@ -47,7 +53,7 @@ export default {
 
 <style scoped>
 .board-grid {
-  max-width: 100%;
+  max-width: 300px;
   max-height: 100%;
 }
 
@@ -65,12 +71,12 @@ export default {
 }
 
 .board-grid-item {
-  height: 99px;
+  height: 89px;
   float: left;
   background: #BDBDBD;
 }
 
-.board-grid-item--height2 { height: 99px; }
+.board-grid-item--height2 { height: 109px; }
 
 .board-grid-picture {
   width: 100%;

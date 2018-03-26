@@ -1,15 +1,14 @@
 <template lang='pug'>
-  div
-    div.masonrypin-wrapper(@mouseover="mouseOver(true)" @mouseout="mouseOver(false)")
-      div.masonrypin-inner
-        v-btn.pin-save-btn(absolute small color="error" v-show="active") SAVE
-            v-icon save
-        div.masonrypin-img(@click="visitPin()")
-          div.img-wrapper
-              img(:src="pin.picture" :alt="pin.description")
-          v-container.masonrypin-footer
-            div.masonrypin-footer-title
-              h5 {{pin.title}}
+  div.masonrypin-wrapper(@mouseover="mouseOver(true)" @mouseout="mouseOver(false)")
+    div.masonrypin-inner
+      v-btn.pin-save-btn(absolute small color="error" v-show="active") SAVE
+          v-icon save
+      div.masonrypin-img(@click="visitPin()")
+        div.img-wrapper
+            img(:src="pin.picture" :alt="pin.description")
+        v-container.masonrypin-footer
+          div.masonrypin-footer-title
+            h5.grey--text.text--darken-1 {{pin.title}}
 </template>
 
 <script>
@@ -54,7 +53,6 @@ export default {
 <style>
 .masonrypin-wrapper {
   border-radius: 8px;
-  color: #746d6a;
   cursor: zoom-in;
   padding: 8px;
   text-shadow: 0 1px #fff;
@@ -81,5 +79,6 @@ export default {
 .pin-save-btn {
   z-index: 100;
   margin-top: 5px;
+  margin-left: 5px;
 }
 </style>

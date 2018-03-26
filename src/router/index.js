@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
+import Register from '@/views/Register'
+import Login from '@/views/Login'
 
 import store from '@/store'
 
@@ -24,17 +26,14 @@ const router = new Router({
     },
     {
       path: '/login',
-      component: () => import('@/views/Login')
+      name: 'login',
+      component: Login
     },
     {
       path: '/register',
-      component: () => import('@/views/Register')
+      name: 'register',
+      component: Register
     },
-    // {
-    //   path: '/connect/:provider',
-    //   component: () => import('@/components/ConnectPage'),
-    //   props: true
-    // },
     {
       path: '/auth/:provider/callback',
       component: () => import('@/components/AuthCallback'),
@@ -46,13 +45,13 @@ const router = new Router({
       component: () => import('@/components/Pin')
     },
     {
-      path: '/:id',
+      path: '/user/:id',
       component: () => import('@/views/Profile'),
       beforeEnter: checkAuth,
       children: [
         {
           path: '',
-          name: 'defaultProfileLanding',
+          name: 'profile',
           component: () => import('@/components/BoardList')
         },
         {

@@ -1,8 +1,7 @@
 <template lang='pug'>
-  div
-    div.wrapper(@click.stop='showDialog = true')
-      CreateCard
-        span.grey--text(slot='title') Create Pin
+  div.wrapper(@click.stop='showDialog = true')
+    CreateCard
+      span.grey--text(slot='title') Create Pin
 
     PinCreateModal(v-model='showDialog')
 
@@ -25,6 +24,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.wrapper {
+  width: 300px;
+}
 </style>

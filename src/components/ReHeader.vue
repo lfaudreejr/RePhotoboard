@@ -6,10 +6,11 @@
     v-spacer
     <!-- <v-toolbar-items class="hidden-sm-and-down"> -->
       //- v-btn(round flat to="/") Home
-      v-btn(flat round v-if='authenticated' @click="goToProfile()") Profile
-      v-btn(flat v-if='authenticated' @click="logout") Logout
-      v-btn(flat round v-if='!authenticated' to="/login") Login
-      v-btn(flat round v-if='!authenticated' to="/register") Register
+    v-btn(v-if="authenticated" flat icon round exact :to="{name: 'profile', params: {id: user.username} }")
+      v-icon person
+    v-btn(v-if="authenticated" flat round @click="logout") Logout
+    v-btn(v-if="!authenticated" flat round exact :to="{path: '/login'}") Login
+    v-btn(v-if="!authenticated" flat round exact :to="{path: '/register'}") Register
 </template>
 
 <script>
@@ -35,13 +36,12 @@ export default {
   },
   methods: {
     async logout () {
-      this.$store.dispatch('auth/LOGOUT')
-      this.$router.push('/login')
-    },
-    goToProfile () {
-      // const end = this.user.email.indexOf('@')
-      // this.$router.push({name: 'defaultProfileLanding', params: { id: this.user.email.slice(0, end) }})
-      this.$router.push({name: 'defaultProfileLanding', params: { id: this.user.username }})
+      this.$store.dispatch('auth/LOGOUT').then(() => {
+        this.$router.push('/login')
+      }).catch(err => {
+        console.error(err)
+        this.$router.push('/login')
+      })
     }
   }
 }

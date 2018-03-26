@@ -2,11 +2,10 @@
   div.app-container
 
     section.profile-header
-      v-layout(row)
-        v-flex(xs5 offset-xs1 sm4 offset-sm2)
-          span.display-2 {{user.name}}
-        v-flex(xs5 offset-xs1 sm4 offset-sm2)
-          img(:src="user.profile")
+      v-layout.pb-3.pt-3(row)
+        v-flex(xs12)
+          v-container
+            p.display-3.grey--text.text--darken-1 {{user.username}}
       v-layout(row)
         v-flex(xs12 sm10 offset-sm2)
           div
@@ -14,9 +13,9 @@
             v-btn(flat :to="{ name: 'pins' }" color="primary") Pins
 
     <!-- <v-container> -->
-      v-container
-        transition(name="router-anim")
-          router-view(:pins="pins", :boards="boards")
+    v-container
+      transition(name="router-anim")
+        router-view(:pins="pins", :boards="boards")
 
 </template>
 
@@ -24,6 +23,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'Profile',
   computed: {
     ...mapGetters({
       boards: 'user/boards',

@@ -14,6 +14,7 @@ import ReDialog from '@/components/ReDialog'
 Vue.use(Vuetify, { theme: {
   primary: '#2196f3',
   secondary: '#0d47a1',
+  tertiary: '#BDBDBD',
   accent: '#ffc400',
   error: '#f44336',
   warning: '#ffeb3b',

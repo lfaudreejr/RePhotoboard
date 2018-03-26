@@ -89,9 +89,8 @@ export default {
 
 <style>
 .form-wrapper {
-  margin-top: 60px;
+  padding-top: 60px;
   height: 100%;
-  background-color: #EEEEEE;
 }
 .form {
   border: 1px solid #2196f3;

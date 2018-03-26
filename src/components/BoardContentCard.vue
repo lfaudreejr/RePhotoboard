@@ -6,7 +6,7 @@
         <!-- Should contain 6 images -->
         div.card-inner-wrapper
           board-content-grid(:pins='board.pins')
-      div.card-title {{board.title}}
+      div.card-title.grey--text.text--darken-1 {{board.title}}
 </template>
 
 <script>
@@ -30,16 +30,12 @@ export default {
         default: ''
       }
     }
-  },
-  mounted: function () {
-    console.log('Boards', this.board)
   }
 }
 </script>
 
 <style scoped>
 .card-inner-wrapper {
-  color: #746d6a;
   text-shadow: 0 1px #fff;
   overflow: hidden;
   height: 199px;
