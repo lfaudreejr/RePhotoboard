@@ -1,16 +1,16 @@
 <template lang='pug'>
   v-toolbar(color="primary" dark app)
-    v-btn(icon to='/')
+    v-btn(icon small to='/')
       v-icon home
     v-toolbar-title {{title}}
     v-spacer
     <!-- <v-toolbar-items class="hidden-sm-and-down"> -->
       //- v-btn(round flat to="/") Home
-    v-btn(v-if="authenticated" flat icon round exact :to="{name: 'profile', params: {id: user.username} }")
+    v-btn(v-if="authenticated" icon small round @click="navigateRoute('/profile')")
       v-icon person
-    v-btn(v-if="authenticated" flat round @click="logout") Logout
-    v-btn(v-if="!authenticated" flat round exact :to="{path: '/login'}") Login
-    v-btn(v-if="!authenticated" flat round exact :to="{path: '/register'}") Register
+    v-btn(v-if="authenticated" flat small round @click="logout") Logout
+    v-btn(v-if="!authenticated" flat small round @click="navigateRoute('/login')") Login
+    v-btn(v-if="!authenticated" flat small round @click="navigateRoute('/register')") Register
 </template>
 
 <script>
@@ -42,6 +42,13 @@ export default {
         console.error(err)
         this.$router.push('/login')
       })
+    },
+    navigateRoute (route) {
+      if (route === '/profile') {
+        this.$router.push({ path: `/profile/${this.user.username}` })
+      } else {
+        this.$router.push({ path: route })
+      }
     }
   }
 }

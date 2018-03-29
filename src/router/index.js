@@ -9,11 +9,14 @@ import store from '@/store'
 Vue.use(Router)
 
 const checkAuth = (to, from, next) => {
-  if (store.getters['auth/isAuthenticated']) {
-    next()
-    return
+  const isLoggedIn = store.getters['auth/isAuthenticated']
+  console.log('Logged in from router: ', isLoggedIn)
+
+  if (!isLoggedIn) {
+    return next({path: '/login'})
+  } else {
+    return next()
   }
-  next('/login')
 }
 
 const router = new Router({
@@ -45,13 +48,13 @@ const router = new Router({
       component: () => import('@/components/Pin')
     },
     {
-      path: '/user/:id',
+      path: '/profile/:id',
       component: () => import('@/views/Profile'),
       beforeEnter: checkAuth,
+      beforeRouteUpdate: checkAuth,
       children: [
         {
-          path: '',
-          name: 'profile',
+          path: '/profile/:id',
           component: () => import('@/components/BoardList')
         },
         {

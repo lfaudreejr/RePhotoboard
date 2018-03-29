@@ -5,7 +5,7 @@
       div.m-0.p-0
         <!-- Should contain 6 images -->
         div.card-inner-wrapper
-          board-content-grid(:pins='board.pins')
+          board-content-grid(:pins='board.board_pins')
       div.card-title.grey--text.text--darken-1 {{board.title}}
 </template>
 

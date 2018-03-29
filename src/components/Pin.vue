@@ -9,13 +9,13 @@
           v-layout(row wrap)
             v-flex(xs12 sm6 md8)
               v-container.pin-img-container
-                img(:src='pin.picture' width='100%')
+                img(:src='pin.url' width='100%')
             v-flex(xs12 sm6 md4)
               v-container.pin-side-container
-                v-btn.pin-save-btn(block small color="error") Save
+                v-btn.pin-save-btn(block small color="error" v-if='isAuthenticated') Save
                   v-icon save
                 h3 {{pin.title}}
-                p saved by: {{pin.creator.username}}
+                p saved by: {{pin.saved_by.username}}
                 p {{pin.description}}
 </template>
 
@@ -25,7 +25,8 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      pin: 'pins/pin'
+      pin: 'pins/pin',
+      isAuthenticated: 'auth/isAuthenticated'
     })
   },
   beforeMount () {

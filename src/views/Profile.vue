@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.app-container
+  div.mt-5
 
     section.profile-header
       v-layout.pb-3.pt-3(row)
@@ -12,8 +12,7 @@
             v-btn(flat :to="{ name: 'boards' }" color="primary") Boards
             v-btn(flat :to="{ name: 'pins' }" color="primary") Pins
 
-    <!-- <v-container> -->
-    v-container
+    div.profile-view-container
       transition(name="router-anim")
         router-view(:pins="pins", :boards="boards")
 
@@ -42,6 +41,10 @@ export default {
   padding: 25px;
 }
 .profile-content {
+  margin: 0 auto;
+}
+.profile-view-container {
+  max-width: 900px;
   margin: 0 auto;
 }
 </style>

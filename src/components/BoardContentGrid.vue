@@ -3,22 +3,22 @@
     div.board-grid(ref="boardgrid")
       div.board-grid-sizer
       div.board-grid-item.btlr8
-        img.board-grid-picture.btlr8(v-if="pins[0]" :src="pins[0].picture")
+        img.board-grid-picture.btlr8(v-if="pins[0]" :src="pins[0].url")
 
       div.board-grid-item.board-grid-item--height2
-        img.board-grid-picture(v-if="pins[1]" :src="pins[0].picture")
+        img.board-grid-picture(v-if="pins[1]" :src="pins[1].url")
 
       div.board-grid-item.board-grid-item--height2.btrr8
-        img.board-grid-picture.btrr8(v-if="pins[2]" :src="pins[0].picture")
+        img.board-grid-picture.btrr8(v-if="pins[2]" :src="pins[2].url")
 
       div.board-grid-item.board-grid-item--height2.bblr8
-        img.board-grid-picture.bblr8(v-if="pins[3]" :src="pins[0].picture")
+        img.board-grid-picture.bblr8(v-if="pins[3]" :src="pins[3].url")
 
       div.board-grid-item
-        img.board-grid-picture(v-if="pins[4]" :src="pins[0].picture")
+        img.board-grid-picture(v-if="pins[4]" :src="pins[4].url")
 
       div.board-grid-item.bbrr8
-        img.board-grid-picture.bbrr8(v-if="pins[5]" :src="pins[0].picture")
+        img.board-grid-picture.bbrr8(v-if="pins[5]" :src="pins[5].url")
 
 </template>
 

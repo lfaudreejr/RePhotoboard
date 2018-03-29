@@ -6,7 +6,7 @@
       @input='close'
     )
       v-card
-        v-card-title
+        v-card-title(primary-title)
           slot(name='dialog-title')
         v-container
           slot

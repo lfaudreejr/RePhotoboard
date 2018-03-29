@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.boardlist-container(:key=name)
+  v-container.boardlist-container(fluid :key=name)
     v-layout(row wrap)
       v-flex(xs12 sm6 md4)
         BoardCreateCard

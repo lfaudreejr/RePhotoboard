@@ -1,4 +1,5 @@
 import { USER, API } from '@/utils/api'
+import { getData, map } from '@/utils/utils'
 
 const setUser = (context, user) => {
   context.commit('USER_UPDATED', user)
@@ -17,22 +18,24 @@ const getUser = ({context, dispatch}, jwt) => {
     method: 'GET',
     url: '/me',
     headers: { 'Authorization': `Bearer ${jwt}` }
-  }).then(response => {
-    const { data } = response
-    const userData = Object.assign({}, {
-      username: data.username,
-      email: data.email,
-      role: data.role
-    })
-    const userBoards = data.boards
-    const userPins = data.pins
-
-    dispatch('setUser', userData)
-    dispatch('loadUserBoards', { boards: userBoards, jwt: jwt })
-    dispatch('setUserPins', userPins)
-  }).catch((err) => {
-    console.error(err)
   })
+    .then(getData)
+    .then(data => {
+      const userData = Object.assign({}, {
+        _id: data._id,
+        username: data.username,
+        email: data.email,
+        role: data.role
+      })
+      const userBoards = data.boards
+      const userPins = data.pins
+
+      dispatch('setUser', userData)
+      dispatch('loadUserBoards', { boards: userBoards, jwt: jwt })
+      dispatch('setUserPins', userPins)
+    }).catch((err) => {
+      console.error(err)
+    })
 }
 
 const loadUserBoards = ({context, dispatch}, payload) => {
@@ -40,19 +43,38 @@ const loadUserBoards = ({context, dispatch}, payload) => {
     let promiseArray = payload.boards.map(board => {
       return API({
         method: 'GET',
-        url: `/board/${board.id}`,
+        url: `/boards/${board._id}`,
         headers: { 'Authorization': `Bearer ${payload.jwt}` }
       })
     })
     let retreivedBoards = Promise.all(promiseArray)
 
-    retreivedBoards.then(response => {
-      const userBoards = response.map(r => r.data)
-      dispatch('setUserBoards', userBoards)
-    }).catch(err => {
-      console.error(err)
-    })
+    retreivedBoards
+      .then(map(getData))
+      .then(userBoards => {
+      // const userBoards = response.map(e => e.data)
+        console.log('userboards in loadboars ', userBoards)
+        dispatch('setUserBoards', userBoards)
+      }).catch(err => {
+        console.error(err)
+      })
   }
+}
+
+const createBoard = ({context, dispatch}, payload) => {
+  const jwt = localStorage.getItem('rpbtoken')
+
+  return API({
+    method: 'POST',
+    url: '/boards',
+    headers: { 'Authorization': `Bearer ${jwt}` },
+    data: payload
+  }).then((results) => {
+    console.log(results)
+    return dispatch('getUser', jwt)
+  }).catch((err) => {
+    console.error(err)
+  })
 }
 
 const removeUser = ({context, dispatch}) => {
@@ -67,5 +89,6 @@ export default {
   removeUser,
   setUserBoards,
   setUserPins,
-  loadUserBoards
+  loadUserBoards,
+  createBoard
 }

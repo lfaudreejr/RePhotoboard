@@ -1,13 +1,16 @@
 <template lang='pug'>
   re-dialog(:value='value' max-width='500px' @input='close')
-    span.headline(slot='dialog-title') Create Board
-    v-text-field(label='Enter Board Name' v-model='boardName' required)
+    span.headline.grey--text.text--darken-1(slot='dialog-title') Create Board
+    v-text-field(label='Enter Board Name' v-model='title' :rules='boardTitleRules' required)
+    v-text-field(label='Enter Board Description' v-model='description')
     div(slot='dialog-actions')
       v-btn(color='primary' flat @click.native='close') Cancel
-      v-btn(color='primary' flat @click.native='close') Create
+      v-btn(color='primary' flat @click.native='save') Create
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     value: {
@@ -15,18 +18,44 @@ export default {
       default: false
     }
   },
+  computed: {
+    ...mapGetters({
+      user: 'user/user'
+    })
+  },
   methods: {
     close () {
       this.clear()
       this.$emit('input')
     },
     clear () {
-      this.boardName = ''
+      this.title = ''
+      this.description = ''
+    },
+    save () {
+      this.$store.dispatch(
+        'user/createBoard',
+        {
+          title: this.title,
+          description: this.description,
+          owner: this.user._id
+        }
+      )
+        .then(() => {
+          this.close()
+        }).catch(err => {
+          console.error(err)
+          this.close()
+        })
     }
   },
   data () {
     return {
-      boardName: ''
+      title: '',
+      description: '',
+      boardTitleRules: [
+        (v) => !!v || 'Title is required'
+      ]
     }
   }
 }

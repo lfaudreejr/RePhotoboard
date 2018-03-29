@@ -5,14 +5,16 @@
 }
 .app-container {
   margin-top: 70px;
+  max-width: 100%;
 }
-.boardlist-container {
+/* .boardlist-container {
   padding-bottom: 55px;
-}
+} */
 .card-wrapper {
   padding-left: 12px;
   padding-right: 12px;
-  margin-bottom: 70px;
+  max-width: 300px;
+  /* margin-bottom: 70px; */
 }
 .card-item {
   padding-left: 12px;
@@ -42,3 +44,7 @@
   max-width: 100%;
   display: flex;
 }
+.stamp {
+  position: relative;
+}
+

@@ -1,10 +1,9 @@
 <template lang='pug'>
-  div.grid-container
-    div.grid(row wrap ref="grid")
-      div.grid-sizer(xs6 sm2 md2)
-      div.grid-item(xs6 sm2 md2 v-for="(i, ix) in pins" :key="ix")
-        v-flex(xs12)
-          masonry-grid-pin(:pin="i")
+  div.grid(ref="grid")
+    slot(name="stamp")
+    div.grid-sizer
+    div.grid-item(v-for="(i, ix) in pins" :key="ix")
+      masonry-grid-pin(:pin="i")
 </template>
 
 <script>
@@ -35,6 +34,7 @@ export default {
       this.$masonry = new Masonry(grid, {
         itemSelector: '.grid-item',
         columnWidth: '.grid-sizer',
+        stamp: '.stamp',
         percentPosition: true
       })
       imagesLoaded(grid).on('progress', () => this.$masonry.layout())
@@ -45,9 +45,9 @@ export default {
 
 <style>
 .grid {
-  width: 100%;
-  height: 100%;
-  /* display: flex; */
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
   /* flex-flow: wrap; */
 }
 
@@ -59,10 +59,13 @@ export default {
 }
 
 /* ---- .grid-item ---- */
+.grid-sizer {
+  position: absolute;
+}
 
 .grid-sizer,
 .grid-item {
-  width: 16.6666%;
+  width: 20%;
   /* width: 20%; */
   /* padding: 3px; */
 }
@@ -86,12 +89,13 @@ export default {
   }
 }
 
+.stamp,
 .grid-item {
   float: left;
 }
 
 .grid-item img {
-  display: block;
+  /* display: block; */
   max-width: 100%;
   border-radius: 8px;
 }

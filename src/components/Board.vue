@@ -4,7 +4,7 @@
       h2.grey--text.text--darken-1 {{board[0].title}} - {{board[0].description}}
     v-layout
       v-flex(xs12)
-        pin-list(:pins="board[0].pins")
+        pin-list(:pins="board[0].board_pins")
 </template>
 
 <script>

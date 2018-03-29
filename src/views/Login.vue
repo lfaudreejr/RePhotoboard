@@ -71,8 +71,8 @@ export default {
     },
     logUserIn () {
       this.$store.dispatch('auth/LOGIN_REQUEST', {email: this.username.trim(), password: this.password.trim()})
-        .then(response => {
-          this.$router.push('/')
+        .then(() => {
+          this.$router.push({path: '/'})
         })
         .catch((err) => {
           this.error = err.response.data.message
