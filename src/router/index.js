@@ -45,7 +45,7 @@ const router = new Router({
     {
       path: '/pin/:pin',
       name: 'pin',
-      component: () => import('@/components/Pin')
+      component: () => import('@/views/Pin')
     },
     {
       path: '/profile/:id',

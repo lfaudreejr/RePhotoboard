@@ -1,8 +1,9 @@
 <template lang='pug'>
   re-dialog(:value='value' max-width='500px' @input='close')
     span.headline.grey--text.text--darken-1(slot='dialog-title') Create Board
-    v-text-field(label='Enter Board Name' v-model='title' :rules='boardTitleRules' required)
-    v-text-field(label='Enter Board Description' v-model='description')
+    v-form(ref='boardCreateForm' v-model='valid')
+      v-text-field(label='Enter Board Name' v-model='title' :rules='boardTitleRules' required)
+      v-text-field(label='Enter Board Description' v-model='description')
     div(slot='dialog-actions')
       v-btn(color='primary' flat @click.native='close') Cancel
       v-btn(color='primary' flat @click.native='save') Create
@@ -31,26 +32,30 @@ export default {
     clear () {
       this.title = ''
       this.description = ''
+      this.$refs.boardCreateForm.reset()
     },
     save () {
-      this.$store.dispatch(
-        'user/createBoard',
-        {
-          title: this.title,
-          description: this.description,
-          owner: this.user._id
-        }
-      )
-        .then(() => {
-          this.close()
-        }).catch(err => {
-          console.error(err)
-          this.close()
-        })
+      if (this.$refs.boardCreateForm.validate()) {
+        this.$store.dispatch(
+          'user/createBoard',
+          {
+            title: this.title,
+            description: this.description,
+            owner: this.user._id
+          }
+        )
+          .then(() => {
+            this.close()
+          }).catch(err => {
+            console.error(err)
+            this.close()
+          })
+      }
     }
   },
   data () {
     return {
+      valid: true,
       title: '',
       description: '',
       boardTitleRules: [

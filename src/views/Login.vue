@@ -19,8 +19,8 @@
                   :rules='passwordRules'
                   required)
                 v-card-actions
-                  v-btn.primary(:disabled='!valid' @click.prevent='logUserIn') Submit
-                  v-btn(flat @click='clearForm') Clear
+                  v-btn.primary(flat @click.prevent='logUserIn') Submit
+                  v-btn(flat @click.prevent='clearForm') Clear
                 p.subheading.mt-3 OR
                 social-button(btnStyle='color:#1dcaff' href='/connect/twitter' icon='fa-twitter')
                   span Sign In with Twitter
@@ -70,18 +70,20 @@ export default {
       this.password = null
     },
     logUserIn () {
-      this.$store.dispatch('auth/LOGIN_REQUEST', {email: this.username.trim(), password: this.password.trim()})
-        .then(() => {
-          this.$router.push({path: '/'})
-        })
-        .catch((err) => {
-          this.error = err.response.data.message
-          this.clearForm()
-          localStorage.removeItem('token')
-          console.error(err)
-          this.$store.commit('LOGIN_ERROR')
-          setTimeout(() => { this.error = '' }, 1500)
-        })
+      if (this.$refs.loginForm.validate()) {
+        this.$store.dispatch('auth/LOGIN_REQUEST', {email: this.username.trim(), password: this.password.trim()})
+          .then(() => {
+            this.$router.push({path: '/'})
+          })
+          .catch((err) => {
+            this.error = err.response.data.message
+            this.clearForm()
+            localStorage.removeItem('token')
+            console.error(err)
+            this.$store.commit('LOGIN_ERROR')
+            setTimeout(() => { this.error = '' }, 1500)
+          })
+      }
     }
   }
 }
@@ -93,7 +95,7 @@ export default {
   height: 100%;
 }
 .form {
-  border: 1px solid #2196f3;
+  border: 1px solid #16a085;
   border-radius: 8px;
 }
 </style>

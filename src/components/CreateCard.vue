@@ -19,6 +19,41 @@ export default {
 </script>
 
 <style scoped>
+.card-wrapper {
+  /* padding-left: 12px; */
+  /* padding-right: 12px; */
+  width: 300px;
+  margin-left: 50px;
+  /* margin-bottom: 70px; */
+}
+.card-item {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.card-item:hover {
+  background-color: #EEEEEE;
+}
+.card-title {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.card-inner {
+  width: 300px;
+  height: 199px;
+  border-radius: 8px;
+  background-color: #BDBDBD;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  display: flex;
+}
 .card-inner-button {
   height: 40px;
   width: 40px;
@@ -29,10 +64,29 @@ export default {
 .blue-button {
   height: 40px;
   width: 40px;
-  color: #0091ea;
+  color: #16a085;
   display: block;
   fill: currentColor;
   stroke-width: 0;
   /* vertical-align: middle; */
+}
+
+@media only screen and (min-width: 500px) {
+  .card-wrapper {
+    /* padding-left: 12px; */
+    /* padding-right: 12px; */
+    max-width: 275px;
+    margin-left: 0px;
+    /* margin-bottom: 70px; */
+  }
+  .card-inner {
+    width: 275px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .card-wrapper {
+    margin-left: 5px;
+  }
 }
 </style>

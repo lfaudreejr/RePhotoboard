@@ -18,6 +18,8 @@
                   :type="passwordHidden ? 'password' : 'text'"
                   v-model='password'
                   :rules='passwordRules'
+                  hint='Passwords must be at least 6 characters in length.'
+                  persistent-hint
                   required)
                 v-text-field(
                   label='confirm password'
@@ -28,8 +30,8 @@
                   :rules='confirmPasswordRules'
                   required)
                 v-card-actions
-                  v-btn.primary(:disabled='!valid' @click.prevent='registerUser') Submit
-                  v-btn(flat @click='clearForm') Clear
+                  v-btn.primary(flat @click.prevent='registerUser') Submit
+                  v-btn(flat @click.prevent='clearForm') Clear
                 p.subheading.mt-3 OR
                 social-button(btnStyle='color:#1dcaff' href='/connect/twitter' icon='fa-twitter')
                   span Sign In with Twitter
@@ -92,14 +94,17 @@ export default {
       this.confirmPassword = null
     },
     registerUser () {
-      this.$store.dispatch('auth/REGISTER_REQUEST', { username: this.username.trim(), email: this.email.trim(), password: this.password.trim() }).then((response) => {
-        this.$router.push('/')
-      }).catch((err) => {
-        this.error = err.response.data.message
-        this.clearForm()
-        console.error(err)
-        setTimeout(() => { this.error = '' }, 1000)
-      })
+      if (this.$refs.registerForm.validate()) {
+        this.$store.dispatch('auth/REGISTER_REQUEST', { username: this.username.trim(), email: this.email.trim(), password: this.password.trim() })
+          .then((response) => {
+            this.$router.push('/')
+          }).catch((err) => {
+            this.error = err.response.data.message
+            this.clearForm()
+            console.error(err)
+            setTimeout(() => { this.error = '' }, 1000)
+          })
+      }
     }
   }
 }
@@ -110,7 +115,7 @@ export default {
   padding-top: 70px;
 }
 .form {
-  border: 1px solid #2196f3;
+  border: 1px solid #16a085;
   border-radius: 8px;
 }
 </style>

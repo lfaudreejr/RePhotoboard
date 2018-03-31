@@ -12,10 +12,10 @@ import SocialButton from '@/components/SocialButton'
 import ReDialog from '@/components/ReDialog'
 
 Vue.use(Vuetify, { theme: {
-  primary: '#2196f3',
-  secondary: '#0d47a1',
-  tertiary: '#BDBDBD',
-  accent: '#ffc400',
+  primary: '#1abc9c',
+  secondary: '#16a085',
+  tertiary: '#EEEEEE',
+  accent: '#f1c40f',
   error: '#f44336',
   warning: '#ffeb3b',
   info: '#2196f3',

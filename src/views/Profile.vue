@@ -1,18 +1,17 @@
 <template lang='pug'>
-  div.mt-5
-
-    section.profile-header
-      v-layout.pb-3.pt-3(row)
+  v-container(fluid).mt-5
+    v-container.mx-auto
+      v-layout.pb-5.pt-5.pr-3.pl-3(row)
         v-flex(xs12)
           v-container
             p.display-3.grey--text.text--darken-1 {{user.username}}
       v-layout(row)
         v-flex(xs12 sm10 offset-sm2)
           div
-            v-btn(flat :to="{ name: 'boards' }" color="primary") Boards
-            v-btn(flat :to="{ name: 'pins' }" color="primary") Pins
+            v-btn(flat round :to="{ name: 'boards' }" color="primary") Boards
+            v-btn(flat round :to="{ name: 'pins' }" color="primary") Pins
 
-    div.profile-view-container
+    v-container.mx-auto
       transition(name="router-anim")
         router-view(:pins="pins", :boards="boards")
 
@@ -34,17 +33,5 @@ export default {
 </script>
 
 <style scoped>
-.profile-header {
-  max-width: 900px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 25px;
-}
-.profile-content {
-  margin: 0 auto;
-}
-.profile-view-container {
-  max-width: 900px;
-  margin: 0 auto;
-}
+
 </style>

@@ -7,14 +7,14 @@
       v-flex(x12 sm6 offset-sm3)
         div.pin-wrapper
           v-layout(row wrap)
-            v-flex(xs12 sm6 md8)
+            v-flex(xs12 sm6 md7)
               v-container.pin-img-container
                 img(:src='pin.url' width='100%')
-            v-flex(xs12 sm6 md4)
-              v-container.pin-side-container
-                v-btn.pin-save-btn(block small color="error" v-if='isAuthenticated') Save
+            v-flex(xs12 sm6 md5)
+              v-container
+                v-btn.pin-save-btn.mb-3(depressed block small color="secondary" v-if='isAuthenticated') Save
                   v-icon save
-                h3 {{pin.title}}
+                h3.pb-2.pt-2 {{pin.title}}
                 p saved by: {{pin.saved_by.username}}
                 p {{pin.description}}
 </template>
@@ -65,11 +65,4 @@ export default {
   border-radius: 8px;
 }
 
-.pin-side-container {
-  padding: 15px;
-}
-.pin-side-container h3 {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
 </style>

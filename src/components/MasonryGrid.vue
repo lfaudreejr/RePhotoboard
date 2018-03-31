@@ -1,6 +1,7 @@
 <template lang='pug'>
   div.grid(ref="grid")
-    slot(name="stamp")
+    div.stamp
+      slot(name="stamp")
     div.grid-sizer
     div.grid-item(v-for="(i, ix) in pins" :key="ix")
       masonry-grid-pin(:pin="i")
@@ -25,8 +26,15 @@ export default {
     return {
     }
   },
+  mounted: function () {
+    this.$nextTick(function () {
+      this.startMasonry()
+    })
+  },
   updated: function () {
-    this.startMasonry()
+    this.$nextTick(function () {
+      this.startMasonry()
+    })
   },
   methods: {
     startMasonry () {
@@ -34,70 +42,50 @@ export default {
       this.$masonry = new Masonry(grid, {
         itemSelector: '.grid-item',
         columnWidth: '.grid-sizer',
-        stamp: '.stamp',
-        percentPosition: true
+        stamp: '.stamp'
       })
-      imagesLoaded(grid).on('progress', () => this.$masonry.layout())
+      imagesLoaded(grid).on('done', () => this.$masonry.layout())
     }
   }
 }
 </script>
 
 <style>
-.grid {
-  max-width: 100%;
-  max-height: 100%;
-  display: flex;
-  /* flex-flow: wrap; */
-}
-
 /* clear fix */
 .grid:after {
   content: '';
   display: block;
   clear: both;
 }
-
 /* ---- .grid-item ---- */
-.grid-sizer {
-  position: absolute;
-}
-
 .grid-sizer,
 .grid-item {
-  width: 20%;
-  /* width: 20%; */
-  /* padding: 3px; */
+  width: 275px;
 }
-@media (max-width: 960px) {
-  .grid-sizer,
-  .grid-item {
-    width: 26.66%;
-  }
-}
-
-@media (max-width: 750px) {
-  .grid-sizer,
-  .grid-item {
-    width: 33.333%;
-  }
-}
-@media (max-width: 600px) {
-  .grid-sizer,
-  .grid-item {
-    width: 50%;
-  }
-}
-
 .stamp,
 .grid-item {
   float: left;
 }
-
 .grid-item img {
-  /* display: block; */
+  display: block;
   max-width: 100%;
   border-radius: 8px;
+}
+@media only screen and (max-width: 500px) {
+  .container {
+    padding: 2px !important;
+  }
+  .grid-sizer,
+  .grid-item {
+    width: 300px;
+    margin-left: 50px;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .grid-sizer,
+  .grid-item {
+    margin-left: 5px;
+  }
 }
 
 </style>

@@ -1,7 +1,7 @@
 <template lang='pug'>
   div.masonrypin-wrapper(@mouseover="mouseOver(true)" @mouseout="mouseOver(false)")
     div.masonrypin-inner
-      v-btn.pin-save-btn(absolute small color="error" v-show="active" v-if="isAuthenticated") SAVE
+      v-btn.pin-save-btn(absolute depressed small color="secondary" v-show="active" v-if="isAuthenticated") SAVE
         v-icon save
       div.masonrypin-img(@click="visitPin()")
         div.img-wrapper
@@ -57,12 +57,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .masonrypin-wrapper {
   border-radius: 8px;
   cursor: zoom-in;
   padding: 8px;
-  text-shadow: 0 1px #fff;
 }
 .masonrypin-wrapper:hover {
   background: #EEEEEE;
@@ -70,18 +69,20 @@ export default {
 .masonrypin-inner {
   margin: 0 auto;
 }
-.masonrypin-wrapper:hover .img-wrapper {
-  filter: brightness(.5);
-  /* -webkit-filter: brightness(.5); */
+.masonrypin-wrapper:hover {
+  .img-wrapper {
+    filter: brightness(.5);
+    -webkit-filter: brightness(.5);
+  }
 }
 .masonrypin-img {
   border-radius: 8px;
-  /* transition: all .2s ease-in-out; */
-  /* -webkit-transition: all .2s ease-in-out; */
-  /* -moz-transition: all .2s ease-in-out; */
-  /* -o-transition: all .2s ease-in-out; */
-  /* transform: translateX(0); */
-  /* -webkit-transform: translateX(0); */
+  transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transform: translateX(0);
+  -webkit-transform: translateX(0);
 }
 .masonrypin-footer {
   padding: 5px;

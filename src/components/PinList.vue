@@ -1,8 +1,6 @@
 <template lang='pug'>
-  div
-    <!-- Replace with just a pin image -->
-    masonry-grid(:pins="pins")
-      PinCreateCard.stamp.grid-item(slot="stamp")
+  MasonryGrid(:pins="pins")
+    PinCreateCard(slot="stamp")
 </template>
 
 <script>
@@ -26,15 +24,4 @@ export default {
 
 <style scoped>
 
-@media (min-width: 375px) {
-  /* .pin-list {
-    float: left;
-  } */
-  /* clear fix */
-  .pin-list:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-}
 </style>

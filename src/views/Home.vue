@@ -1,6 +1,5 @@
 <template lang='pug'>
-  <!-- Insert MasonryList -->
-  div.app-container
+  v-container.app-container
     masonry-grid(:pins='pins')
 </template>
 

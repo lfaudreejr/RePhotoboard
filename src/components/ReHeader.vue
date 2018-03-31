@@ -1,16 +1,16 @@
 <template lang='pug'>
-  v-toolbar(color="primary" dark app)
-    v-btn(icon small to='/')
+  v-toolbar(id="retoolbar" flat app color="grey lighten-5")
+    v-btn(color="primary" icon small to='/')
       v-icon home
-    v-toolbar-title {{title}}
+    v-toolbar-title(class="grey--text text--darken-1 hidden-xs-only") {{title}}
     v-spacer
     <!-- <v-toolbar-items class="hidden-sm-and-down"> -->
       //- v-btn(round flat to="/") Home
-    v-btn(v-if="authenticated" icon small round @click="navigateRoute('/profile')")
+    v-btn(v-if="authenticated" color="primary" icon small round @click="navigateRoute('/profile')")
       v-icon person
-    v-btn(v-if="authenticated" flat small round @click="logout") Logout
-    v-btn(v-if="!authenticated" flat small round @click="navigateRoute('/login')") Login
-    v-btn(v-if="!authenticated" flat small round @click="navigateRoute('/register')") Register
+    v-btn(v-if="authenticated" color="grey" flat small round @click="logout") Logout
+    v-btn(v-if="!authenticated" color="grey" flat small round @click="navigateRoute('/login')") Login
+    v-btn(v-if="!authenticated" color="grey" flat small round @click="navigateRoute('/register')") Register
 </template>
 
 <script>
@@ -55,5 +55,7 @@ export default {
 </script>
 
 <style>
-
+#retoolbar {
+  border-bottom: 2px solid #EEEEEE !important;
+}
 </style>

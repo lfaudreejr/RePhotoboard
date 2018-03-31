@@ -1,19 +1,20 @@
 <template lang='pug'>
   re-dialog(:value='value' max-width='500px' @input='close')
     span.headline.grey--text.text--darken-1(slot='dialog-title') Create Pin
-    v-text-field(
-      label='Enter Pin Title'
-      v-model='pinData.pinTitle'
-      :rules='rules.pinTitleRules'
-      required
-    )
-    v-text-field(label='Enter Pin Description' v-model='pinData.pinDescription')
-    v-text-field(
-      label='Enter Pin Url'
-      v-model='pinData.pinUrl'
-      :rules='rules.pinUrlRules'
-      required
-    )
+    v-form(ref='pinCreateForm' v-model='valid')
+      v-text-field(
+        label='Enter Pin Title'
+        v-model='pinData.pinTitle'
+        :rules='rules.pinTitleRules'
+        required
+      )
+      v-text-field(label='Enter Pin Description' v-model='pinData.pinDescription')
+      v-text-field(
+        label='Enter Pin Url'
+        v-model='pinData.pinUrl'
+        :rules='rules.pinUrlRules'
+        required
+      )
     div(slot='dialog-actions')
       v-btn(color='primary' flat @click.native='close') Cancel
       v-btn(color='primary' flat @click.native='save') Create
@@ -36,23 +37,25 @@ export default {
   },
   methods: {
     save () {
-      this.$store.dispatch(
-        'pins/createPin',
-        {
-          title: this.pinData.pinTitle.trim(),
-          description: this.pinData.pinDescription.trim(),
-          url: this.pinData.pinUrl.trim(),
-          saved_by: this.user._id
-        }
-      )
-        .then((pin) => {
-          this.close()
-          this.$router.push({path: `/pin/${pin._id}`})
-        })
-        .catch(err => {
-          console.error(err)
-          this.close()
-        })
+      if (this.$refs.pinCreateForm.validate()) {
+        this.$store.dispatch(
+          'pins/createPin',
+          {
+            title: this.pinData.pinTitle.trim(),
+            description: this.pinData.pinDescription.trim(),
+            url: this.pinData.pinUrl.trim(),
+            saved_by: this.user._id
+          }
+        )
+          .then((pin) => {
+            this.close()
+            this.$router.push({path: `/pin/${pin._id}`})
+          })
+          .catch(err => {
+            console.error(err)
+            this.close()
+          })
+      }
     },
     close () {
       this.clear()
@@ -60,10 +63,12 @@ export default {
     },
     clear () {
       this.pinData = {}
+      this.$refs.pinCreateForm.reset()
     }
   },
   data () {
     return {
+      valid: false,
       pinData: {
         pinTitle: '',
         pinDescription: '',
