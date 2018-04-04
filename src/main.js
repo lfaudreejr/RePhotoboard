@@ -10,6 +10,7 @@ import 'vuetify/dist/vuetify.min.css'
 
 import SocialButton from '@/components/SocialButton'
 import ReDialog from '@/components/ReDialog'
+import RePinSaveButton from '@/components/RePinSaveButton'
 
 Vue.use(Vuetify, { theme: {
   primary: '#1abc9c',
@@ -24,6 +25,7 @@ Vue.use(Vuetify, { theme: {
 
 Vue.component('social-button', SocialButton)
 Vue.component('re-dialog', ReDialog)
+Vue.component('re-pin-save-button', RePinSaveButton)
 
 Vue.prototype.$http = axios
 Vue.config.productionTip = false

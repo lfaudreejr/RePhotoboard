@@ -1,5 +1,5 @@
 import { USER, API } from '@/utils/api'
-import { getData, map } from '@/utils/utils'
+import { getData, mapGetData } from '@/utils/utils'
 
 const setUser = (context, user) => {
   context.commit('USER_UPDATED', user)
@@ -50,7 +50,7 @@ const loadUserBoards = ({context, dispatch}, payload) => {
     let retreivedBoards = Promise.all(promiseArray)
 
     retreivedBoards
-      .then(map(getData))
+      .then(mapGetData)
       .then(userBoards => {
       // const userBoards = response.map(e => e.data)
         console.log('userboards in loadboars ', userBoards)
@@ -70,8 +70,27 @@ const createBoard = ({context, dispatch}, payload) => {
     headers: { 'Authorization': `Bearer ${jwt}` },
     data: payload
   }).then((results) => {
-    console.log(results)
-    return dispatch('getUser', jwt)
+    console.log('created ', results)
+    dispatch('getUser', jwt)
+    return results
+  }).catch((err) => {
+    console.error(err)
+  })
+}
+
+const updateBoard = ({context, dispatch}, payload) => {
+  console.log(payload)
+  const jwt = localStorage.getItem('rpbtoken')
+
+  return API({
+    method: 'PUT',
+    url: '/boards/' + payload._id,
+    headers: { 'Authorization': `Bearer ${jwt}` },
+    data: payload
+  }).then((results) => {
+    console.log('updated ', results)
+    dispatch('getUser', jwt)
+    return results
   }).catch((err) => {
     console.error(err)
   })
@@ -90,5 +109,6 @@ export default {
   setUserBoards,
   setUserPins,
   loadUserBoards,
-  createBoard
+  createBoard,
+  updateBoard
 }

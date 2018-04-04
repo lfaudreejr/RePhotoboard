@@ -1,17 +1,19 @@
 <template lang='pug'>
   div.masonrypin-wrapper(@mouseover="mouseOver(true)" @mouseout="mouseOver(false)")
     div.masonrypin-inner
-      v-btn.pin-save-btn(absolute depressed small color="secondary" v-show="active" v-if="isAuthenticated") SAVE
-        v-icon save
+      re-pin-save-button(v-show="active" absolute v-if='isAuthenticated' :pin="pin" @click.native='openModal')
       div.masonrypin-img(@click="visitPin()")
         div.img-wrapper
           img(:src="pin.url" :alt="pin.description")
         div.masonrypin-footer
           div.masonrypin-footer-title
             h5.grey--text.text--darken-1 {{pin.title}}
+
+    PinSaveModal(v-model="showModal" :pin="pin")
 </template>
 
 <script>
+import PinSaveModal from '@/components/PinSaveModal'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -36,6 +38,9 @@ export default {
       }
     }
   },
+  components: {
+    PinSaveModal
+  },
   computed: {
     ...mapGetters({
       isAuthenticated: 'auth/isAuthenticated'
@@ -47,11 +52,15 @@ export default {
     },
     visitPin: function (id) {
       this.$router.push({name: 'pin', params: { pin: this.pin._id }})
+    },
+    openModal: function () {
+      this.showModal = !this.showModal
     }
   },
   data () {
     return {
-      active: false
+      active: false,
+      showModal: false
     }
   }
 }
@@ -60,8 +69,8 @@ export default {
 <style lang="scss">
 .masonrypin-wrapper {
   border-radius: 8px;
-  cursor: zoom-in;
   padding: 8px;
+  cursor: zoom-in;
 }
 .masonrypin-wrapper:hover {
   background: #EEEEEE;
@@ -86,10 +95,5 @@ export default {
 }
 .masonrypin-footer {
   padding: 5px;
-}
-.pin-save-btn {
-  z-index: 100;
-  margin-top: 5px;
-  margin-left: 5px;
 }
 </style>

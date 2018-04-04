@@ -12,17 +12,27 @@
                 img(:src='pin.url' width='100%')
             v-flex(xs12 sm6 md5)
               v-container
-                v-btn.pin-save-btn.mb-3(depressed block small color="secondary" v-if='isAuthenticated') Save
-                  v-icon save
+                re-pin-save-button.mb-3(
+                  v-if='isAuthenticated'
+                  :pin='pin'
+                  :block='true'
+                  @click.native='openModal'
+                )
                 h3.pb-2.pt-2 {{pin.title}}
                 p saved by: {{pin.saved_by.username}}
                 p {{pin.description}}
+
+    PinSaveModal(v-model="showModal" :pin="pin")
 </template>
 
 <script>
+import PinSaveModal from '@/components/PinSaveModal'
 import { mapGetters } from 'vuex'
 
 export default {
+  components: {
+    PinSaveModal
+  },
   computed: {
     ...mapGetters({
       pin: 'pins/pin',
@@ -34,7 +44,8 @@ export default {
   },
   data () {
     return {
-      loading: true
+      loading: true,
+      showModal: false
     }
   },
   methods: {
@@ -45,6 +56,9 @@ export default {
         this.loading = false
         console.log(err)
       })
+    },
+    openModal () {
+      this.showModal = !this.showModal
     }
   }
 }

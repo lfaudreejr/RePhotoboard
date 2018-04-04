@@ -41,7 +41,7 @@ export default {
           {
             title: this.title,
             description: this.description,
-            owner: this.user._id
+            creator: this.user._id
           }
         )
           .then(() => {

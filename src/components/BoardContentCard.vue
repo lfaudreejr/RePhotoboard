@@ -35,9 +35,5 @@ export default {
 </script>
 
 <style scoped>
-.card-inner-wrapper {
-  text-shadow: 0 1px #fff;
-  overflow: hidden;
-  height: 199px;
-}
+
 </style>
