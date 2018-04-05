@@ -1,6 +1,6 @@
 <template lang='pug'>
   v-app
-    ReHeader(:authenticated='isAuthenticated')
+    ReHeader.mb-5(:authenticated='isAuthenticated')
     transition(name='router-anim' mode='out-in')
       router-view
     ReFooter

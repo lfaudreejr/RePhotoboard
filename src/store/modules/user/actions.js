@@ -1,5 +1,14 @@
 import { USER, API } from '@/utils/api'
-import { getData, mapGetData } from '@/utils/utils'
+import {
+  getData,
+  mapGetData,
+  getNewObject,
+  getJWT,
+  handleError,
+  flatten,
+  uniqueById,
+  mapGetBoardPins
+} from '@/utils/utils'
 
 const setUser = (context, user) => {
   context.commit('USER_UPDATED', user)
@@ -21,24 +30,26 @@ const getUser = ({context, dispatch}, jwt) => {
   })
     .then(getData)
     .then(data => {
-      const userData = Object.assign({}, {
+      const userData = getNewObject({
         _id: data._id,
         username: data.username,
         email: data.email,
         role: data.role
       })
+
+      console.log('DATA ', data)
       const userBoards = data.boards
       const userPins = data.pins
 
       dispatch('setUser', userData)
-      dispatch('loadUserBoards', { boards: userBoards, jwt: jwt })
-      dispatch('setUserPins', userPins)
-    }).catch((err) => {
-      console.error(err)
-    })
+      dispatch('loadUserBoards', { boards: userBoards, pins: userPins, jwt: jwt })
+      // dispatch('setUserPins', userPins)
+    }).catch(handleError)
 }
 
 const loadUserBoards = ({context, dispatch}, payload) => {
+  console.log('load boards payload ', payload)
+
   if (Array.isArray(payload.boards)) {
     let promiseArray = payload.boards.map(board => {
       return API({
@@ -47,22 +58,24 @@ const loadUserBoards = ({context, dispatch}, payload) => {
         headers: { 'Authorization': `Bearer ${payload.jwt}` }
       })
     })
+
     let retreivedBoards = Promise.all(promiseArray)
 
     retreivedBoards
       .then(mapGetData)
       .then(userBoards => {
-      // const userBoards = response.map(e => e.data)
-        console.log('userboards in loadboars ', userBoards)
+        const boardPins = mapGetBoardPins(userBoards)
+        const allPinsFlattened = flatten(boardPins.concat(payload.pins))
+        const allUniq = uniqueById(allPinsFlattened)
+
         dispatch('setUserBoards', userBoards)
-      }).catch(err => {
-        console.error(err)
-      })
+        dispatch('setUserPins', allUniq)
+      }).catch(handleError)
   }
 }
 
 const createBoard = ({context, dispatch}, payload) => {
-  const jwt = localStorage.getItem('rpbtoken')
+  const jwt = getJWT()
 
   return API({
     method: 'POST',
@@ -73,14 +86,12 @@ const createBoard = ({context, dispatch}, payload) => {
     console.log('created ', results)
     dispatch('getUser', jwt)
     return results
-  }).catch((err) => {
-    console.error(err)
-  })
+  }).catch(handleError)
 }
 
 const updateBoard = ({context, dispatch}, payload) => {
   console.log(payload)
-  const jwt = localStorage.getItem('rpbtoken')
+  const jwt = getJWT()
 
   return API({
     method: 'PUT',
@@ -91,9 +102,7 @@ const updateBoard = ({context, dispatch}, payload) => {
     console.log('updated ', results)
     dispatch('getUser', jwt)
     return results
-  }).catch((err) => {
-    console.error(err)
-  })
+  }).catch(handleError)
 }
 
 const removeUser = ({context, dispatch}) => {

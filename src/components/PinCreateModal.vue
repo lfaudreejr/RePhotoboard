@@ -1,5 +1,5 @@
 <template lang='pug'>
-  re-dialog(:value='value' max-width='500px' @input='close')
+  re-dialog(:value='value' width='500' @input='close')
     span.headline.grey--text.text--darken-1(slot='dialog-title') Create Pin
     v-form(ref='pinCreateForm' v-model='valid')
       v-text-field(
@@ -41,9 +41,9 @@ export default {
         this.$store.dispatch(
           'pins/createPin',
           {
-            title: this.pinData.pinTitle.trim(),
-            description: this.pinData.pinDescription.trim(),
-            url: this.pinData.pinUrl.trim(),
+            title: this.pinData.pinTitle,
+            description: this.pinData.pinDescription,
+            url: this.pinData.pinUrl,
             saved_by: this.user._id
           }
         )
@@ -69,6 +69,8 @@ export default {
   data () {
     return {
       valid: false,
+      snackbar: false,
+      snackbarTimeout: 3000,
       pinData: {
         pinTitle: '',
         pinDescription: '',

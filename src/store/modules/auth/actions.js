@@ -1,5 +1,5 @@
 import { AUTH } from '@/utils/api'
-import { getData } from '@/utils/utils'
+import { getData, setJWT } from '@/utils/utils'
 
 export default {
 
@@ -8,7 +8,9 @@ export default {
       .then(getData)
       .then((data) => {
         const { jwt } = data
-        localStorage.setItem('rpbtoken', jwt)
+
+        setJWT(jwt)
+
         dispatch('user/getUser', jwt, {root: true})
         commit('LOGIN_SUCCESS', jwt)
       })
@@ -18,7 +20,9 @@ export default {
       .then(getData)
       .then(data => {
         const { jwt } = data
-        localStorage.setItem('rpbtoken', jwt)
+
+        setJWT(jwt)
+
         dispatch('user/getUser', jwt, {root: true}).then(() => {
           commit('LOGIN_SUCCESS', jwt)
         })
@@ -28,12 +32,11 @@ export default {
     return AUTH({ method: 'GET', url: `${payload.provider}/callback${payload.query}` })
       .then(getData)
       .then(data => {
-        const { user, jwt } = data
+        const { jwt } = data
 
-        localStorage.setItem('rpbtoken', jwt)
-        dispatch('user/setUser', user, {root: true})
-        dispatch('user/setUserBoards', user.boards, {root: true})
-        dispatch('user/setUserPins', user.pins, {root: true})
+        setJWT(jwt)
+
+        dispatch('user/getUser', jwt, {root: true})
 
         commit('LOGIN_SUCCESS', jwt)
       })

@@ -1,14 +1,12 @@
 import { API } from '@/utils/api'
-import { getData } from '@/utils/utils'
+import { getData, getJWT, handleError } from '@/utils/utils'
 
 const getPins = (context) => {
   return API.get('/pins')
     .then(getData)
     .then((response) => {
       context.commit('PINS_UPDATED', response)
-    }).catch((err) => {
-      console.error(err)
-    })
+    }).catch(handleError)
 }
 
 const getPin = (context, id) => {
@@ -16,13 +14,11 @@ const getPin = (context, id) => {
     .then(getData)
     .then((response) => {
       context.commit('PIN_UPDATED', response)
-    }).catch((err) => {
-      console.error(err)
-    })
+    }).catch(handleError)
 }
 
 const createPin = ({context, dispatch}, payload) => {
-  const token = localStorage.getItem('rpbtoken')
+  const token = getJWT()
 
   return API({
     method: 'POST',
@@ -35,9 +31,7 @@ const createPin = ({context, dispatch}, payload) => {
       dispatch('user/getUser', token, {root: true})
       return pin
     })
-    .catch(err => {
-      console.error(err)
-    })
+    .catch(handleError)
 }
 
 export default {

@@ -5,7 +5,7 @@
       :max-width='width'
       @input='close'
     )
-      v-card
+      v-card.re-dialog-wrapper
         v-card-title(primary-title)
           slot(name='dialog-title')
         v-container
@@ -36,5 +36,9 @@ export default {
 </script>
 
 <style>
-
+.re-dialog-wrapper {
+  border-radius: 8px;
+  color: #746d6a;
+  background: #EEEEEE;
+}
 </style>

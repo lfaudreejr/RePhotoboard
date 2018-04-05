@@ -18,7 +18,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      pins: 'pins/pins'
+      pins: 'pins/pins',
+      isLoading: 'loaders/isLoading'
     })
   },
   async mounted () {

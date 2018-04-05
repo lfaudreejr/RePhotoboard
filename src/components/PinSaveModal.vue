@@ -4,6 +4,7 @@
       div.pin-save-wrapper
         v-container
           v-toolbar(flat dense color="tertiary")
+            v-alert.my-warning.pa-1.mb-1.mt-1.ml-1(v-model="hasPin" type="info") Psst... You have saved this pin already.
             v-spacer
             v-btn(icon @click="close")
               v-icon close
@@ -15,13 +16,12 @@
 
               v-list(v-show="!createNewBoard")
                 template(v-for="board in boards")
-                  v-list-tile(:key="board.id" @click="savePin(board)")
+                  v-list-tile(:key="board.id" @click.stop.prevent="savePin(board.id)")
                     v-list-tile-title(v-html="board.title")
                 v-list-tile(@click="toggleCreateBoard")
                   v-list-tile-title.primary--text Create Board
 
               div(v-if="createNewBoard")
-                h3.pb-2 Enter New Board Name
                 v-form(ref="savePinToNewBoardForm" v-model='valid')
                   v-text-field(
                     name="input-2"
@@ -49,6 +49,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import _ from 'lodash'
 
 export default {
   props: {
@@ -64,6 +65,7 @@ export default {
   data () {
     return {
       valid: true,
+      hasPin: false,
       newBoardTitle: '',
       newBoardDescription: '',
       createNewBoard: false,
@@ -75,19 +77,28 @@ export default {
     }
   },
   computed: {
-    saveErrors () {
-      if (this.saveError) {
-        return this.saveError
-      } else {
-        return []
-      }
-    },
     ...mapGetters({
       boards: 'user/boards',
-      user: 'user/user'
+      user: 'user/user',
+      pins: 'user/pins'
     })
   },
+  updated () {
+    this.hasThisPinAlready()
+  },
   methods: {
+    hasThisPinAlready () {
+      const userBoards = this.boards.map(b => { return b.board_pins })
+      const flattened = _.flatten(userBoards)
+
+      if (flattened.every(p => p._id !== this.pin._id)) {
+        console.log('Does not have this pin ', this.pin)
+        this.hasPin = false
+      } else {
+        console.log('Has this pin')
+        this.hasPin = true
+      }
+    },
     saveToNewBoard () {
       const newBoard = {
         title: this.newBoardTitle,
@@ -101,30 +112,13 @@ export default {
             description: newBoard.description,
             creator: this.user._id
           }
-        ).then(data => {
-          return data.data
-        })
+        )
+          .then(data => {
+            return data.data
+          })
           .then((board) => {
             console.log('new board created ', board)
-
-            let newPins = []
-            if (board.board_pins) {
-              newPins = board.board_pins.map(x => x)
-            }
-            newPins.push(this.pin._id)
-            return this.$store.dispatch('user/updateBoard', {
-              _id: board._id,
-              id: board.id,
-              title: board.title,
-              description: board.description,
-              creator: this.user._id,
-              board_pins: newPins
-            })
-          })
-          .then(() => this.$router.push(`/profile/${this.user.username}`))
-          .catch((err) => {
-            console.error(err)
-            this.$router.push('/')
+            this.savePin(board)
           })
       }
     },
@@ -148,6 +142,12 @@ export default {
       this.$emit('input')
     },
     savePin (board) {
+      console.log('savePin board ', board)
+      const boardFound = _.filter(this.boards, (v) => v.id === board)
+      console.log('found ', boardFound)
+      this.dispatchSave(boardFound[0])
+    },
+    dispatchSave (board) {
       let newPins = []
       if (board.board_pins) {
         newPins = board.board_pins.map(x => x)
@@ -180,6 +180,10 @@ export default {
 
 .pin-save-wrapper img {
   max-width: 100%;
+  border-radius: 8px;
+}
+
+.my-warning {
   border-radius: 8px;
 }
 </style>
