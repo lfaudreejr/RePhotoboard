@@ -105,6 +105,21 @@ const updateBoard = ({context, dispatch}, payload) => {
   }).catch(handleError)
 }
 
+const deleteBoard = ({context, dispatch}, payload) => {
+  const jwt = getJWT()
+
+  return API({
+    method: 'DELETE',
+    url: '/boards/' + payload._id,
+    headers: { 'Authorization': `Bearer ${jwt}` }
+  })
+    .then((data) => {
+      console.log('deleted data ', data.data)
+      dispatch('getUser', jwt)
+    })
+    .catch(handleError)
+}
+
 const removeUser = ({context, dispatch}) => {
   dispatch('setUser', '')
   dispatch('setUserBoards', [])
@@ -119,5 +134,6 @@ export default {
   setUserPins,
   loadUserBoards,
   createBoard,
-  updateBoard
+  updateBoard,
+  deleteBoard
 }

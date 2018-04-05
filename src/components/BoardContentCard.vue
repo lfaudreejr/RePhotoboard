@@ -1,24 +1,40 @@
 <template lang='pug'>
-  div.card-wrapper(@click='visitBoard()')
-    div.card-item
-      <!-- wrap in a router -->
-      div.m-0.p-0
-        <!-- Should contain 6 images -->
-        div.card-inner-wrapper
-          board-content-grid(:pins='board.board_pins')
-      div.card-title.grey--text.text--darken-1 {{board.title}}
+  div
+    div.card-wrapper(@click.prevent='visitBoard()' @mouseenter="toggleEditButton" @mouseleave="toggleEditButton")
+      div.card-item
+        <!-- wrap in a router -->
+        div.m-0.p-0
+          <!-- Should contain 6 images -->
+          div.card-inner-wrapper
+            board-content-grid(:pins='board.board_pins')
+        v-layout(row)
+          v-flex(xs10)
+            div.card-title.grey--text.text--darken-1 {{board.title}}
+          v-flex(xs2)
+            v-btn.edit-button.grey--text.text--darken-1(icon @click.stop.prevent="toggleEditModal" v-show="showEditButton")
+              v-icon edit
+
+    BoardEditModal(v-model="showEditModal" :board="board")
 </template>
 
 <script>
 import BoardContentGrid from '@/components/BoardContentGrid'
+import BoardEditModal from '@/components/BoardEditModal'
 
 export default {
   components: {
-    BoardContentGrid
+    BoardContentGrid,
+    BoardEditModal
   },
   methods: {
     visitBoard: function () {
       this.$router.push({name: 'board', params: { board: this.board._id }})
+    },
+    toggleEditModal () {
+      this.showEditModal = !this.showEditModal
+    },
+    toggleEditButton () {
+      this.showEditButton = !this.showEditButton
     }
   },
   props: {
@@ -30,10 +46,20 @@ export default {
         default: ''
       }
     }
+  },
+  data () {
+    return {
+      showEditModal: false,
+      showEditButton: false
+    }
   }
 }
 </script>
 
 <style scoped>
-
+.edit-button {
+  z-index: 1000;
+  position: relative;
+  display: inline-block;
+}
 </style>
