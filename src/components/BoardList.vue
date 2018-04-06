@@ -13,15 +13,15 @@ import BoardContentCard from '@/components/BoardContentCard'
 
 export default {
   name: 'board-list',
+  components: {
+    BoardCreateCard,
+    BoardContentCard
+  },
   props: {
     boards: {
       type: Array,
       default: []
     }
-  },
-  components: {
-    BoardCreateCard,
-    BoardContentCard
   }
 }
 </script>

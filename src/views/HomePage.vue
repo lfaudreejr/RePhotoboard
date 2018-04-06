@@ -22,13 +22,13 @@ export default {
       isLoading: 'loaders/isLoading'
     })
   },
-  async mounted () {
-    await this.$store.dispatch('pins/getPins')
-  },
   data () {
     return {
       url: '/profile'
     }
+  },
+  async mounted () {
+    await this.$store.dispatch('pins/getPins')
   }
 }
 </script>

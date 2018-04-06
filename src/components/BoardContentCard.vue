@@ -6,7 +6,7 @@
         div.m-0.p-0
           <!-- Should contain 6 images -->
           div.card-inner-wrapper
-            board-content-grid(:pins='board.board_pins')
+            board-content-card-grid(:pins='board.board_pins')
         v-layout(row)
           v-flex(xs10)
             div.card-title.grey--text.text--darken-1 {{board.title}}
@@ -18,24 +18,13 @@
 </template>
 
 <script>
-import BoardContentGrid from '@/components/BoardContentGrid'
+import BoardContentCardGrid from '@/components/BoardContentCardGrid'
 import BoardEditModal from '@/components/BoardEditModal'
 
 export default {
   components: {
-    BoardContentGrid,
+    BoardContentCardGrid,
     BoardEditModal
-  },
-  methods: {
-    visitBoard: function () {
-      this.$router.push({name: 'board', params: { board: this.board._id }})
-    },
-    toggleEditModal () {
-      this.showEditModal = !this.showEditModal
-    },
-    toggleEditButton () {
-      this.showEditButton = !this.showEditButton
-    }
   },
   props: {
     board: {
@@ -51,6 +40,17 @@ export default {
     return {
       showEditModal: false,
       showEditButton: false
+    }
+  },
+  methods: {
+    visitBoard: function () {
+      this.$router.push({name: 'board', params: { board: this.board._id }})
+    },
+    toggleEditModal () {
+      this.showEditModal = !this.showEditModal
+    },
+    toggleEditButton () {
+      this.showEditButton = !this.showEditButton
     }
   }
 }

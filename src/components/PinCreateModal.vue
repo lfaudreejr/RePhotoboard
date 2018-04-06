@@ -35,6 +35,28 @@ export default {
       user: 'user/user'
     })
   },
+  data () {
+    return {
+      valid: false,
+      snackbar: false,
+      snackbarTimeout: 3000,
+      pinData: {
+        pinTitle: '',
+        pinDescription: '',
+        pinUrl: ''
+      },
+      rules: {
+        pinTitleRules: [
+          (v) => !!v || 'Title required'
+        ],
+        pinUrlRules: [
+          (v) => !!v || 'Url is required',
+          // eslint-disable-next-line
+          (v) => /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/.test(v) || 'Invalid Url'
+        ]
+      }
+    }
+  },
   methods: {
     save () {
       if (this.$refs.pinCreateForm.validate()) {
@@ -64,28 +86,6 @@ export default {
     clear () {
       this.pinData = {}
       this.$refs.pinCreateForm.reset()
-    }
-  },
-  data () {
-    return {
-      valid: false,
-      snackbar: false,
-      snackbarTimeout: 3000,
-      pinData: {
-        pinTitle: '',
-        pinDescription: '',
-        pinUrl: ''
-      },
-      rules: {
-        pinTitleRules: [
-          (v) => !!v || 'Title required'
-        ],
-        pinUrlRules: [
-          (v) => !!v || 'Url is required',
-          // eslint-disable-next-line
-          (v) => /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/.test(v) || 'Invalid Url'
-        ]
-      }
     }
   }
 }

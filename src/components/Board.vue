@@ -25,13 +25,13 @@ export default {
       boards: 'user/boards'
     })
   },
+  mounted: function () {
+    this.setBoard()
+  },
   methods: {
     setBoard () {
       this.board = this.boards.filter(b => b._id === this.$route.params.board)
     }
-  },
-  mounted: function () {
-    this.setBoard()
   }
 }
 </script>

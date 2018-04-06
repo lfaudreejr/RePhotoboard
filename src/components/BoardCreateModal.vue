@@ -19,6 +19,16 @@ export default {
       default: false
     }
   },
+  data () {
+    return {
+      valid: true,
+      title: '',
+      description: '',
+      boardTitleRules: [
+        (v) => !!v || 'Title is required'
+      ]
+    }
+  },
   computed: {
     ...mapGetters({
       user: 'user/user'
@@ -51,16 +61,6 @@ export default {
             this.close()
           })
       }
-    }
-  },
-  data () {
-    return {
-      valid: true,
-      title: '',
-      description: '',
-      boardTitleRules: [
-        (v) => !!v || 'Title is required'
-      ]
     }
   }
 }

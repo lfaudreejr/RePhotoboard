@@ -17,6 +17,9 @@ import PinSaveModal from '@/components/PinSaveModal'
 import { mapGetters } from 'vuex'
 
 export default {
+  components: {
+    PinSaveModal
+  },
   props: {
     pin: {
       type: Object,
@@ -38,8 +41,11 @@ export default {
       }
     }
   },
-  components: {
-    PinSaveModal
+  data () {
+    return {
+      active: false,
+      showModal: false
+    }
   },
   computed: {
     ...mapGetters({
@@ -55,12 +61,6 @@ export default {
     },
     openModal: function () {
       this.showModal = !this.showModal
-    }
-  },
-  data () {
-    return {
-      active: false,
-      showModal: false
     }
   }
 }

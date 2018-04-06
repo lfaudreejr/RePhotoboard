@@ -33,6 +33,12 @@ export default {
   components: {
     PinSaveModal
   },
+  data () {
+    return {
+      loading: true,
+      showModal: false
+    }
+  },
   computed: {
     ...mapGetters({
       pin: 'pins/pin',
@@ -41,12 +47,6 @@ export default {
   },
   beforeMount () {
     this.fetchData()
-  },
-  data () {
-    return {
-      loading: true,
-      showModal: false
-    }
   },
   methods: {
     fetchData () {

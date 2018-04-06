@@ -5,12 +5,11 @@
         v-flex(xs12 sm6 offset-sm3)
           v-card.form(flat)
             v-card-title(primary-title)
-              h3.diplay-1.mb-0.secondary--text Rephotoboard - Register
+              h3.diplay-1.mb-0.secondary--text Rephotoboard - Sign In
             v-card-text
               h5(v-if='error' style='color:red') {{error}}
-              v-form(ref='registerForm' v-model='valid')
+              v-form(ref='loginForm' v-model='valid')
                 v-text-field(label='username' v-model='username' :rules='usernameRules' required)
-                v-text-field(label='email' v-model='email' :rules='emailRules' required)
                 v-text-field(
                   label='password'
                   :append-icon="passwordHidden ? 'visibility' : 'visibility_off'"
@@ -18,19 +17,9 @@
                   :type="passwordHidden ? 'password' : 'text'"
                   v-model='password'
                   :rules='passwordRules'
-                  hint='Passwords must be at least 6 characters in length.'
-                  persistent-hint
-                  required)
-                v-text-field(
-                  label='confirm password'
-                  :append-icon="confirmPasswordHidden ? 'visibility' : 'visibility_off'"
-                  :append-icon-cb="() => (confirmPasswordHidden = !confirmPasswordHidden)"
-                  :type="confirmPasswordHidden ? 'password' : 'text'"
-                  v-model='confirmPassword'
-                  :rules='confirmPasswordRules'
                   required)
                 v-card-actions
-                  v-btn.primary(flat @click.prevent='registerUser') Submit
+                  v-btn.primary(flat @click.prevent='logUserIn') Submit
                   v-btn(flat @click.prevent='clearForm') Clear
                 p.subheading.mt-3 OR
                 social-button(btnStyle='color:#1dcaff' href='/connect/twitter' icon='fa-twitter')
@@ -47,19 +36,15 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'Register',
+  name: 'Login',
   data () {
     return {
       valid: false,
       username: null,
       usernameRules: [
         (v) => !!v || 'Username is required'
-      ],
-      email: null,
-      emailRules: [
-        (v) => !!v || 'E-mail is required',
         // eslint-disable-next-line
-        (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+        // (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ],
       password: null,
       passwordHidden: true,
@@ -67,13 +52,6 @@ export default {
         (v) => !!v || 'Password is required',
         (v) => (!!v && v.length >= 6) || 'Password must be atleast 6 characters'
       ],
-      confirmPassword: null,
-      confirmPasswordHidden: true,
-      confirmPasswordRules: [
-        (v) => !!v || 'Password is required',
-        (v) => (v === this.password) || 'Passwords do not match'
-      ],
-
       error: ''
     }
   },
@@ -85,24 +63,25 @@ export default {
   methods: {
     clearForm () {
       this.resetFields()
-      this.$refs.registerForm.reset()
+      this.$refs.loginForm.reset()
     },
     resetFields () {
-      this.username = null
       this.email = null
       this.password = null
-      this.confirmPassword = null
     },
-    registerUser () {
-      if (this.$refs.registerForm.validate()) {
-        this.$store.dispatch('auth/REGISTER_REQUEST', { username: this.username.trim(), email: this.email.trim(), password: this.password.trim() })
-          .then((response) => {
-            this.$router.push('/')
-          }).catch((err) => {
+    logUserIn () {
+      if (this.$refs.loginForm.validate()) {
+        this.$store.dispatch('auth/LOGIN_REQUEST', {email: this.username.trim(), password: this.password.trim()})
+          .then(() => {
+            this.$router.push({path: '/'})
+          })
+          .catch((err) => {
             this.error = err.response.data.message
             this.clearForm()
+            localStorage.removeItem('token')
             console.error(err)
-            setTimeout(() => { this.error = '' }, 1000)
+            this.$store.commit('LOGIN_ERROR')
+            setTimeout(() => { this.error = '' }, 1500)
           })
       }
     }
@@ -110,12 +89,6 @@ export default {
 }
 </script>
 
-<style>
-.form-wrapper {
-  padding-top: 70px;
-}
-.form {
-  border: 1px solid #16a085;
-  border-radius: 8px;
-}
+<style scoped>
+
 </style>
