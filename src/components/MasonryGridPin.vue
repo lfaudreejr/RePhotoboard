@@ -1,7 +1,21 @@
 <template lang='pug'>
   div.masonrypin-wrapper(@mouseover="mouseOver(true)" @mouseout="mouseOver(false)")
     div.masonrypin-inner
-      re-pin-save-button(v-show="active" absolute v-if='isAuthenticated' :pin="pin" @click.native='openModal')
+      re-pin-save-button.pin-save-btn-msry(
+        v-show="active && isAuthenticated"
+        absolute
+        :pin="pin"
+        @click.native='openSaveModal'
+      )
+      v-btn.pin-edit-btn.grey--text.text--darken-2(
+        color="grey lighten-2"
+        v-show="active && isUserPin"
+        absolute
+        right
+        icon
+        @click.native='openEditModal'
+      )
+        v-icon edit
       div.masonrypin-img(@click="visitPin()")
         div.img-wrapper
           img(:src="pin.url" :alt="pin.description")
@@ -9,16 +23,19 @@
           div.masonrypin-footer-title
             h5.grey--text.text--darken-1 {{pin.title}}
 
-    PinSaveModal(v-model="showModal" :pin="pin")
+    PinSaveModal(v-model="showSaveModal" :pin="pin")
+    PinEditModal(v-model="showEditModal" :pin="pin")
 </template>
 
 <script>
 import PinSaveModal from '@/components/PinSaveModal'
+import PinEditModal from '@/components/PinEditModal'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    PinSaveModal
+    PinSaveModal,
+    PinEditModal
   },
   props: {
     pin: {
@@ -44,11 +61,16 @@ export default {
   data () {
     return {
       active: false,
-      showModal: false
+      showSaveModal: false,
+      showEditModal: false
     }
   },
   computed: {
+    isUserPin () {
+      return this.pin.saved_by === this.user._id
+    },
     ...mapGetters({
+      user: 'user/user',
       isAuthenticated: 'auth/isAuthenticated'
     })
   },
@@ -59,8 +81,11 @@ export default {
     visitPin: function (id) {
       this.$router.push({name: 'pin', params: { pin: this.pin._id }})
     },
-    openModal: function () {
-      this.showModal = !this.showModal
+    openSaveModal: function () {
+      this.showSaveModal = !this.showSaveModal
+    },
+    openEditModal: function () {
+      this.showEditModal = !this.showEditModal
     }
   }
 }

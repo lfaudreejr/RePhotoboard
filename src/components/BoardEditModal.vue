@@ -13,7 +13,7 @@
           v-form(@submit.prevent="submit" ref="form")
             v-container
               v-layout(row wrap)
-                v-flex(xs12)
+                v-flex(xs12).pa-2
                   v-text-field(
                     label="Title"
                     v-model="form.title"
@@ -22,18 +22,33 @@
                     persistent-hint
                     required
                   )
-                v-divider
-                v-flex(xs12)
+                v-flex(xs12).pa-2
                   v-text-field(
                     label="Description"
                     v-model="form.description"
                     :hint="currentDescription"
                     persistent-hint
                   )
-                v-btn.grey--text.text--darken-1(flat @click="deleteBoard") Delete
+              v-layout.pa-0.mt-5
+                v-btn.grey--text.text--darken-1.ma-0.pa-0(
+                  depressed
+                  small
+                  color="tertiary"
+                  @click="deleteBoard"
+                ) Delete
                 v-spacer
-                v-btn.grey--text.text--darken-1(flat @click="cancel") Cancel
-                v-btn(flat color="primary" @click="saveBoard") Save
+                v-btn.grey--text.text--darken-1.ma-0.pa-0(
+                  depressed
+                  small
+                  color="tertiary"
+                  @click="cancel"
+                ) Cancel
+                v-btn.ma-0.pa-0(
+                  depressed
+                  small
+                  color="primary"
+                  @click="saveBoard"
+                ) Save
 
 </template>
 

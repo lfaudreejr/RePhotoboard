@@ -6,11 +6,13 @@
           v-toolbar(flat dense color="tertiary")
             v-alert.my-warning.pa-1.mb-1.mt-1.ml-1(v-model="hasPin" type="info") Psst... You have saved this pin already.
             v-spacer
-            v-btn(icon @click="close")
+            v-btn(icon @click="close").grey--text.text--darken-1
               v-icon close
-          v-layout(row wrap)
+          v-divider
+
+          v-layout(row wrap).pt-2
             v-flex(xs12 sm6).pa-1
-              img(:src="pin.url")
+              img(:src="pin.url" :alt="pin.title")
             v-flex(xs12 sm6).pa-1
               p.heading.text-xs-center Choose Board
 
@@ -36,15 +38,20 @@
                     v-model="newBoardDescription"
                     class="input-group--focused"
                   )
+                v-layout.pa-0.mt-5
+                  v-spacer
                   v-btn(
                     depressed
+                    small
+                    color="tertiary"
+                    @click="cancel"
+                    ) Cancel
+                  v-btn(
+                    depressed
+                    small
                     color="primary"
                     @click="saveToNewBoard"
                     ) Save
-                  v-btn(
-                    depressed
-                    @click="cancel"
-                    ) Cancel
 </template>
 
 <script>
@@ -92,10 +99,8 @@ export default {
       const flattened = _.flatten(userBoards)
 
       if (flattened.every(p => p._id !== this.pin._id)) {
-        console.log('Does not have this pin ', this.pin)
         this.hasPin = false
       } else {
-        console.log('Has this pin')
         this.hasPin = true
       }
     },
@@ -117,7 +122,6 @@ export default {
             return data.data
           })
           .then((board) => {
-            console.log('new board created ', board)
             this.savePin(board)
           })
       }
@@ -142,9 +146,7 @@ export default {
       this.$emit('input')
     },
     savePin (board) {
-      console.log('savePin board ', board)
       const boardFound = _.filter(this.boards, (v) => v.id === board)
-      console.log('found ', boardFound)
       this.dispatchSave(boardFound[0])
     },
     dispatchSave (board) {

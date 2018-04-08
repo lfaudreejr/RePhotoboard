@@ -1,5 +1,5 @@
 <template lang='pug'>
-  v-container(fluid).mt-5
+  v-container(fluid).mt-5.mb-5
     v-container.mx-auto
       v-layout.pb-5.pt-5.pr-3.pl-3(row)
         v-flex(xs12)

@@ -4,7 +4,7 @@
     v-progress-circular(v-if='loading' indeterminate)
 
     v-layout(v-else row)
-      v-flex(x12 sm6 offset-sm3)
+      v-flex(x12 sm10 offset-sm1 md8 offset-md2 lg6 offset-lg3)
         div.pin-wrapper
           v-layout(row wrap)
             v-flex(xs12 sm6 md7)
