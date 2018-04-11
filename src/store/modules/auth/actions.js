@@ -1,14 +1,12 @@
-import { AUTH } from '@/utils/api'
-import { getData, setJWT } from '@/utils/utils'
+import { auth } from '@/utils/api/index'
+import { setJWT, getData, extractJWT } from '@/utils/utils'
 
 export default {
 
   REGISTER_REQUEST ({ commit, dispatch }, user) {
-    return AUTH.post('local/register', user)
-      .then(getData)
-      .then((data) => {
-        const { jwt } = data
-
+    return auth['registerUser'](user)
+      .then(extractJWT)
+      .then(jwt => {
         setJWT(jwt)
 
         dispatch('user/getUser', jwt, {root: true})
@@ -16,11 +14,10 @@ export default {
       })
   },
   LOGIN_REQUEST ({ commit, dispatch }, user) {
-    return AUTH.post('local', { identifier: user.email, password: user.password })
+    return auth['loginUser'](user)
       .then(getData)
-      .then(data => {
-        const { jwt } = data
-
+      .then(extractJWT)
+      .then(jwt => {
         setJWT(jwt)
 
         dispatch('user/getUser', jwt, {root: true}).then(() => {
@@ -29,11 +26,10 @@ export default {
       })
   },
   OAUTH_LOGIN ({ commit, dispatch }, payload) {
-    return AUTH({ method: 'GET', url: `${payload.provider}/callback${payload.query}` })
+    return auth['loginOAuth'](payload)
       .then(getData)
-      .then(data => {
-        const { jwt } = data
-
+      .then(extractJWT)
+      .then(jwt => {
         setJWT(jwt)
 
         dispatch('user/getUser', jwt, {root: true})

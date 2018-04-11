@@ -1,34 +1,26 @@
-import { API } from '@/utils/api'
-import { getData, getJWT, handleError } from '@/utils/utils'
+import { pins } from '@/utils/api/index'
+import { getJWT, handleError } from '@/utils/utils'
 
 const getPins = (context) => {
-  return API.get('/pins')
-    .then(getData)
+  return pins['getAllPins']()
     .then((response) => {
       context.commit('PINS_UPDATED', response)
     }).catch(handleError)
 }
 
 const getPin = (context, id) => {
-  return API.get('/pins/' + id)
-    .then(getData)
+  return pins['getPinById'](id)
     .then((response) => {
       context.commit('PIN_UPDATED', response)
     }).catch(handleError)
 }
 
 const createPin = ({context, dispatch}, payload) => {
-  const token = getJWT()
+  const jwt = getJWT()
 
-  return API({
-    method: 'POST',
-    url: '/pins',
-    headers: { 'Authorization': `Bearer ${token}` },
-    data: payload
-  })
-    .then(getData)
+  return pins['postPin'](payload, jwt)
     .then(pin => {
-      dispatch('user/getUser', token, {root: true})
+      dispatch('user/getUser', jwt, {root: true})
       return pin
     })
     .catch(handleError)

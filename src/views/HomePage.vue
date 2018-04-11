@@ -27,8 +27,8 @@ export default {
       url: '/profile'
     }
   },
-  async mounted () {
-    await this.$store.dispatch('pins/getPins')
+  mounted () {
+    this.$store.dispatch('pins/getPins')
   }
 }
 </script>

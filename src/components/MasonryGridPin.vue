@@ -67,7 +67,10 @@ export default {
   },
   computed: {
     isUserPin () {
-      return this.pin.saved_by === this.user._id
+      if (this.user) {
+        return this.pin.saved_by === this.user._id
+      }
+      return false
     },
     ...mapGetters({
       user: 'user/user',

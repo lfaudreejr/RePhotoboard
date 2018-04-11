@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.card-wrapper
+  div.card-wrapper.ml-0
     div.card-item
       div.card-inner
         div.card-inner-button

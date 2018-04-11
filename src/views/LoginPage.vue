@@ -17,6 +17,7 @@
                   :type="passwordHidden ? 'password' : 'text'"
                   v-model='password'
                   :rules='passwordRules'
+                  @keyup.enter.prevent='logUserIn'
                   required)
                 v-card-actions
                   v-btn.primary(flat @click.prevent='logUserIn') Submit

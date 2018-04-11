@@ -1,6 +1,5 @@
-import { USER, API } from '@/utils/api'
+import { user, boards } from '@/utils/api/index'
 import {
-  getData,
   mapGetData,
   getNewObject,
   getJWT,
@@ -23,12 +22,7 @@ const setUserPins = (context, pins) => {
 }
 
 const getUser = ({context, dispatch}, jwt) => {
-  return USER({
-    method: 'GET',
-    url: '/me',
-    headers: { 'Authorization': `Bearer ${jwt}` }
-  })
-    .then(getData)
+  return user['getUserData'](jwt)
     .then(data => {
       const userData = getNewObject({
         _id: data._id,
@@ -43,7 +37,6 @@ const getUser = ({context, dispatch}, jwt) => {
 
       dispatch('setUser', userData)
       dispatch('loadUserBoards', { boards: userBoards, pins: userPins, jwt: jwt })
-      // dispatch('setUserPins', userPins)
     }).catch(handleError)
 }
 
@@ -52,11 +45,7 @@ const loadUserBoards = ({context, dispatch}, payload) => {
 
   if (Array.isArray(payload.boards)) {
     let promiseArray = payload.boards.map(board => {
-      return API({
-        method: 'GET',
-        url: `/boards/${board._id}`,
-        headers: { 'Authorization': `Bearer ${payload.jwt}` }
-      })
+      return boards['getUserBoards'](board._id, payload.jwt)
     })
 
     let retreivedBoards = Promise.all(promiseArray)
@@ -77,42 +66,31 @@ const loadUserBoards = ({context, dispatch}, payload) => {
 const createBoard = ({context, dispatch}, payload) => {
   const jwt = getJWT()
 
-  return API({
-    method: 'POST',
-    url: '/boards',
-    headers: { 'Authorization': `Bearer ${jwt}` },
-    data: payload
-  }).then((results) => {
-    console.log('created ', results)
-    dispatch('getUser', jwt)
-    return results
-  }).catch(handleError)
+  return boards['postBoard'](payload, jwt)
+    .then((results) => {
+      console.log('created ', results)
+      dispatch('getUser', jwt)
+      return results
+    }).catch(handleError)
 }
 
 const updateBoard = ({context, dispatch}, payload) => {
   console.log(payload)
   const jwt = getJWT()
 
-  return API({
-    method: 'PUT',
-    url: '/boards/' + payload._id,
-    headers: { 'Authorization': `Bearer ${jwt}` },
-    data: payload
-  }).then((results) => {
-    console.log('updated ', results)
-    dispatch('getUser', jwt)
-    return results
-  }).catch(handleError)
+  return boards['putBoard'](payload, jwt)
+
+    .then((results) => {
+      console.log('updated ', results)
+      dispatch('getUser', jwt)
+      return results
+    }).catch(handleError)
 }
 
 const deleteBoard = ({context, dispatch}, payload) => {
   const jwt = getJWT()
 
-  return API({
-    method: 'DELETE',
-    url: '/boards/' + payload._id,
-    headers: { 'Authorization': `Bearer ${jwt}` }
-  })
+  return boards['delBoard'](payload._id, jwt)
     .then((data) => {
       console.log('deleted data ', data.data)
       dispatch('getUser', jwt)
