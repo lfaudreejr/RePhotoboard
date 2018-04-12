@@ -103,40 +103,32 @@ export default {
   },
   methods: {
     close () {
+      this.resetForm()
       this.$emit('input')
     },
     cancelEdit () {
-      this.resetForm()
       this.close()
     },
     resetForm () {
       this.$refs.form.reset()
     },
     deletePin () {
-      console.log('Deleting ', this.pin)
-      // this.$store.dispatch('', {
-      //   _id: this.board._id
-      // }).then((resp) => {
-      //   console.log('delete resp ', resp)
-      //   this.resetForm()
-      //   this.close()
-      //   this.$router.push(`/profile/${this.user.username}`)
-      // }).catch((err) => {
-      //   console.error(err)
-      //   this.resetForm()
-      //   this.close()
-      //   this.$router.push('/')
-      // })
-
-      this.resetForm()
+      this.$store.dispatch('pins/deletePin', {
+        _id: this.pin._id
+      }).then((resp) => {
+        this.close()
+        this.gotoUserProfile()
+      }).catch((err) => {
+        console.error(err)
+        this.close()
+        this.reRoute('/')
+      })
       this.close()
     },
     saveEdit () {
-      console.log('Saving ', this.form.title, this.form.description)
       const isValid = this.$refs.form.validate()
       if (isValid) {
-        console.log('Valid form')
-        this.$store.dispatch('', {
+        this.$store.dispatch('pins/editPin', {
           _id: this.pin._id,
           id: this.pin.id,
           title: this.form.title,
@@ -145,17 +137,23 @@ export default {
           boards: this.pin.boards,
           pin_comments: this.pin.pin_comments
         }).then(() => {
-          this.resetForm()
           this.close()
-          this.$router.push(`/profile/${this.user.username}`)
+          this.gotoUserProfile()
         }).catch((err) => {
           console.error(err)
-          this.resetForm()
           this.close()
-          this.$router.push('/')
+          this.reRoute('/')
         })
       } else {
         console.log('Invalid form')
+      }
+    },
+    reRoute (path) {
+      this.$router.push(path)
+    },
+    gotoUserProfile () {
+      if (this.user) {
+        this.reRoute(`/profile/${this.user.username}`)
       }
     }
   }

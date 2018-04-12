@@ -12,7 +12,6 @@ export default {
   },
   mounted: function () {
     const query = this.$route.fullPath.slice(this.$route.fullPath.indexOf('?'))
-    console.log(this.$route)
     // const query = `?access_token=${this.$route.query.access_token}`
     const payload = { provider: this.provider, query: query }
     this.$store.dispatch('auth/OAUTH_LOGIN', payload).then((res) => {

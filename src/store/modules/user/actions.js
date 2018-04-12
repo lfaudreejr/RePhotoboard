@@ -31,7 +31,6 @@ const getUser = ({context, dispatch}, jwt) => {
         role: data.role
       })
 
-      console.log('DATA ', data)
       const userBoards = data.boards
       const userPins = data.pins
 
@@ -41,8 +40,6 @@ const getUser = ({context, dispatch}, jwt) => {
 }
 
 const loadUserBoards = ({context, dispatch}, payload) => {
-  console.log('load boards payload ', payload)
-
   if (Array.isArray(payload.boards)) {
     let promiseArray = payload.boards.map(board => {
       return boards['getUserBoards'](board._id, payload.jwt)
@@ -68,20 +65,17 @@ const createBoard = ({context, dispatch}, payload) => {
 
   return boards['postBoard'](payload, jwt)
     .then((results) => {
-      console.log('created ', results)
       dispatch('getUser', jwt)
       return results
     }).catch(handleError)
 }
 
 const updateBoard = ({context, dispatch}, payload) => {
-  console.log(payload)
   const jwt = getJWT()
 
   return boards['putBoard'](payload, jwt)
 
     .then((results) => {
-      console.log('updated ', results)
       dispatch('getUser', jwt)
       return results
     }).catch(handleError)
@@ -92,7 +86,6 @@ const deleteBoard = ({context, dispatch}, payload) => {
 
   return boards['delBoard'](payload._id, jwt)
     .then((data) => {
-      console.log('deleted data ', data.data)
       dispatch('getUser', jwt)
     })
     .catch(handleError)

@@ -54,7 +54,7 @@ export default {
         this.loading = false
       }).catch(err => {
         this.loading = false
-        console.log(err)
+        console.error(err)
       })
     },
     openModal () {

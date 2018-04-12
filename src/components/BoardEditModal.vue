@@ -90,39 +90,32 @@ export default {
   },
   methods: {
     close () {
+      this.resetForm()
       this.$emit('input')
     },
     cancel () {
-      this.resetForm()
       this.close()
     },
     resetForm () {
       this.$refs.form.reset()
     },
     deleteBoard () {
-      console.log('Deleting ', this.board)
       this.$store.dispatch('user/deleteBoard', {
         _id: this.board._id
       }).then((resp) => {
-        console.log('delete resp ', resp)
-        this.resetForm()
         this.close()
-        this.$router.push(`/profile/${this.user.username}`)
+        this.gotoUserProfile()
       }).catch((err) => {
         console.error(err)
-        this.resetForm()
         this.close()
         this.$router.push('/')
       })
 
-      this.resetForm()
       this.close()
     },
     saveBoard () {
-      console.log('Saving ', this.form.title, this.form.description)
       const isValid = this.$refs.form.validate()
       if (isValid) {
-        console.log('Valid form')
         this.$store.dispatch('user/updateBoard', {
           _id: this.board._id,
           id: this.board.id,
@@ -131,18 +124,22 @@ export default {
           creator: this.user._id,
           board_pins: this.board.board_pins
         }).then(() => {
-          this.resetForm()
           this.close()
-          this.$router.push(`/profile/${this.user.username}`)
+          this.gotoUserProfile()
         }).catch((err) => {
           console.error(err)
-          this.resetForm()
           this.close()
-          this.$router.push('/')
+          this.reRoute('/')
         })
       } else {
         console.log('Invalid form')
       }
+    },
+    reRoute (path) {
+      this.$router.push(path)
+    },
+    gotoUserProfile () {
+      this.reRoute(`/profile/${this.user.username}`)
     }
   }
 }

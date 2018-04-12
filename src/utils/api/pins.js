@@ -2,10 +2,18 @@ import {API} from './connections'
 
 export default {
   getPinById (id) {
-    return API.get('/pins/' + id).then(data => data.data)
+    return API({
+      method: 'GET',
+      url: '/pins/' + id
+    })
   },
 
-  getAllPins () { return API.get('/pins').then(data => data.data) },
+  getAllPins () {
+    return API({
+      method: 'GET',
+      url: '/pins'
+    })
+  },
 
   createPin (payload, token) {
     return API({
@@ -14,6 +22,22 @@ export default {
       headers: { 'Authorization': `Bearer ${token}` },
       data: payload
     })
-      .then(data => data.data)
+  },
+
+  updatePin (payload, token) {
+    return API({
+      method: 'PUT',
+      url: '/pins/' + payload._id,
+      headers: { 'Authorization': `Bearer ${token}` },
+      data: payload
+    })
+  },
+
+  deletePinById (id, token) {
+    return API({
+      method: 'DELETE',
+      url: '/pins/' + id,
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
   }
 }
