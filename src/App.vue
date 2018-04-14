@@ -26,10 +26,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import './styles/main.scss';
-</style>
-
 <style>
 .router-anim-enter-active {
   animation: coming 0.3s;
