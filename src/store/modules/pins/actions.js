@@ -37,6 +37,7 @@ const editPin = ({context, dispatch}, payload) => {
     .then(pin => {
       dispatch('user/getUser', jwt, {root: true})
     })
+    .catch(handleError)
 }
 
 const deletePin = ({context, dispatch}, payload) => {

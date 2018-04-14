@@ -10,7 +10,6 @@ Vue.use(Router)
 
 const checkAuth = (to, from, next) => {
   const isLoggedIn = store.getters['auth/isAuthenticated']
-  console.log('Logged in from router: ', isLoggedIn)
 
   if (!isLoggedIn) {
     return next({path: '/login'})

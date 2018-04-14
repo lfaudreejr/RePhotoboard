@@ -1,6 +1,8 @@
 import {AUTH} from './connections'
 
-const registerUser = (user) => AUTH.post('local/register', user)
+const registerUser = (user) => {
+  return AUTH.post('local/register', user)
+}
 
 const loginUser = (user) => {
   return AUTH({

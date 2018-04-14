@@ -1,10 +1,11 @@
 import { auth } from '@/utils/api/index'
-import { setJWT, getData, extractJWT } from '@/utils/utils'
+import { setJWT, getData, extractJWT, handleError } from '@/utils/utils'
 
 export default {
 
   REGISTER_REQUEST ({ commit, dispatch }, user) {
     return auth['registerUser'](user)
+      .then(getData)
       .then(extractJWT)
       .then(jwt => {
         setJWT(jwt)
@@ -12,6 +13,7 @@ export default {
         dispatch('user/getUser', jwt, {root: true})
         commit('LOGIN_SUCCESS', jwt)
       })
+      .catch(handleError)
   },
   LOGIN_REQUEST ({ commit, dispatch }, user) {
     return auth['loginUser'](user)
@@ -24,6 +26,7 @@ export default {
           commit('LOGIN_SUCCESS', jwt)
         })
       })
+      .catch(handleError)
   },
   OAUTH_LOGIN ({ commit, dispatch }, payload) {
     return auth['loginOAuth'](payload)
@@ -36,6 +39,7 @@ export default {
 
         commit('LOGIN_SUCCESS', jwt)
       })
+      .catch(handleError)
   },
   LOGOUT ({ commit, dispatch }) {
     localStorage.clear()

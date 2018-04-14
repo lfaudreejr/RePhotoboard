@@ -28,19 +28,21 @@
                   :type="confirmPasswordHidden ? 'password' : 'text'"
                   v-model='confirmPassword'
                   :rules='confirmPasswordRules'
-                  required)
+                  required
+                  @keyup.enter.prevent='registerUser'
+                  )
                 v-card-actions
                   v-btn.primary(flat @click.prevent='registerUser') Submit
                   v-btn(flat @click.prevent='clearForm') Clear
-                p.subheading.mt-3 OR
-                social-button(btnStyle='color:#1dcaff' href='/connect/twitter' icon='fa-twitter')
-                  span Sign In with Twitter
-                social-button(btnStyle='color:#3b5998' href='/connect/facebook' icon='fa-facebook')
-                  span Sign In with Facebook
-                social-button(btnStyle='color:#000' href='/connect/github' icon='fa-github')
-                  span Sign In with Github
-                social-button(btnStyle='color:#4285F4' href='/connect/google' icon='fa-google')
-                  span Sign In with Google
+                //- p.subheading.mt-3 OR
+                //- social-button(btnStyle='color:#1dcaff' href='/connect/twitter' icon='fa-twitter')
+                //-   span Sign In with Twitter
+                //- social-button(btnStyle='color:#3b5998' href='/connect/facebook' icon='fa-facebook')
+                //-   span Sign In with Facebook
+                //- social-button(btnStyle='color:#000' href='/connect/github' icon='fa-github')
+                //-   span Sign In with Github
+                //- social-button(btnStyle='color:#4285F4' href='/connect/google' icon='fa-google')
+                //-   span Sign In with Google
 </template>
 
 <script>
@@ -95,7 +97,8 @@ export default {
     },
     registerUser () {
       if (this.$refs.registerForm.validate()) {
-        this.$store.dispatch('auth/REGISTER_REQUEST', { username: this.username.trim(), email: this.email.trim(), password: this.password.trim() })
+        this.$store.dispatch('auth/REGISTER_REQUEST', {
+          username: this.username, email: this.email, password: this.password})
           .then((response) => {
             this.$router.push('/')
           }).catch((err) => {

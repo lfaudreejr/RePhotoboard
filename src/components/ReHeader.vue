@@ -1,5 +1,5 @@
 <template lang='pug'>
-  v-toolbar(id="retoolbar" flat app color="grey lighten-5")
+  v-toolbar(id="retoolbar" flat dense app color="grey lighten-5")
     v-btn(color="primary" icon small to='/')
       v-icon home
     v-toolbar-title(class="grey--text text--darken-1 hidden-xs-only") {{title}}
