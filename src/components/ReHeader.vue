@@ -54,7 +54,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 #retoolbar {
   border-bottom: 2px solid #EEEEEE !important;
 }

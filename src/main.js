@@ -7,7 +7,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 import 'vuetify/dist/vuetify.min.css'
-import './styles/main.scss'
 
 import SocialButton from '@/components/SocialButton'
 import ReDialog from '@/components/ReDialog'
