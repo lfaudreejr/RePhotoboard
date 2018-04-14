@@ -1,5 +1,5 @@
 <template lang='pug'>
-  v-container.mt-5.mb-5
+  v-container
     masonry-grid(:pins='pins')
 </template>
 

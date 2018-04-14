@@ -2,7 +2,7 @@
   v-app
     ReHeader.mb-5(:authenticated='isAuthenticated')
     transition(name='router-anim' mode='out-in')
-      router-view
+      router-view.mt-5.mb-5
     ReFooter
 </template>
 
@@ -26,7 +26,10 @@ export default {
 }
 </script>
 
-<style src="./styles/main.scss" lang="scss"></style>
+<style lang="scss">
+@import './styles/main.scss';
+</style>
+
 <style>
 .router-anim-enter-active {
   animation: coming 0.3s;
