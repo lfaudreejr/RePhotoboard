@@ -3,7 +3,7 @@
     v-container(grid-list-xl text-xs-center)
       v-layout(row wrap)
         v-flex(xs12 sm6 offset-sm3)
-          v-card.form(flat)
+          v-card.re-form(flat)
             v-card-title(primary-title)
               h3.diplay-1.mb-0.secondary--text Rephotoboard - Register
             v-card-text

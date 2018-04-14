@@ -1,9 +1,9 @@
 <template lang='pug'>
   v-container.boardlist-container(fluid :key=name)
     v-layout(row wrap)
-      v-flex(xs12 sm6 md4 lg3)
+      v-flex(xs12 sm6 md4 lg3 xl2)
         BoardCreateCard
-      v-flex(xs12 sm6 md4 lg3 v-for="(board, idx) in boards" :key="idx")
+      v-flex(xs12 sm6 md4 lg3 xl2 v-for="(board, idx) in boards" :key="idx")
         board-content-card(:board="board")
 </template>
 
