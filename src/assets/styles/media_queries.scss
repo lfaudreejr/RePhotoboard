@@ -1,29 +1,9 @@
-@media only screen and (min-width: 500px) {
-  .card-wrapper {
-    /* padding-left: 12px; */
-    /* padding-right: 12px; */
-    max-width: 275px;
-    margin-left: 0px;
-    /* margin-bottom: 70px; */
-  }
-  .card-inner {
-    width: 275px;
-  }
-  .pin-save-btn-msry {
-    left: 15px;
-  }
-}
+// @media only screen and (max-width: 375px) {
+//   .card-wrapper {
+//     margin-left: 5px;
+//   }
+// }
 
-@media only screen and (max-width: 375px) {
-  .card-wrapper {
-    margin-left: 5px;
-  }
-}
-@media only screen and (max-width: 500px) {
-  .create-container-wrapper {
-    @include masonry-pin-width;
-  }
-}
 
 @media only screen and (max-width: 500px) {
   .container {

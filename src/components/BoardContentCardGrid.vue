@@ -53,7 +53,7 @@ export default {
 
 <style scoped>
 .board-grid {
-  max-width: 300px;
+  max-width: 275px;
   max-height: 100%;
 }
 

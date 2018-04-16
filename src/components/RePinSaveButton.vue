@@ -3,10 +3,11 @@
     :absolute="absolute"
     :block="block"
     depressed
+    :icon="icon"
     :small="small"
     color="secondary"
     @click.native='openModal'
-  ) Save
+  ) {{name}}
     v-icon(center) save
 </template>
 
@@ -29,7 +30,15 @@ export default {
     },
     small: {
       type: Boolean,
-      default: true
+      default: false
+    },
+    icon: {
+      type: Boolean,
+      default: false
+    },
+    name: {
+      type: String,
+      default: ''
     }
   },
   // components: {

@@ -1,16 +1,15 @@
 <template lang="pug">
   v-layout(row justify-center)
-    v-dialog(:value="value" max-width="900" @input='close')
+    v-dialog(:value="value" max-width="650" @input='close')
       div.pin-save-wrapper
-        v-container
           v-toolbar(flat dense color="tertiary")
-            v-alert.my-warning.pa-1.mb-1.mt-1.ml-1(v-model="hasPin" type="info") Psst... You have saved this pin already.
+            v-alert.my-warning.pa-1.ma-0(v-model="hasPin" type="info") Psst... You have saved this pin already.
             v-spacer
             v-btn(icon @click="close").grey--text.text--darken-1
               v-icon close
           v-divider
 
-          v-layout(row wrap).pt-2
+          v-layout(row wrap).pa-2
             v-flex(xs12 sm6).pa-1
               img(:src="pin.url" :alt="pin.title")
             v-flex(xs12 sm6).pa-1
@@ -38,7 +37,7 @@
                     v-model="newBoardDescription"
                     class="input-group--focused"
                   )
-                v-layout.pa-0.mt-5
+                v-layout.pa-0
                   v-spacer
                   v-btn(
                     depressed
@@ -173,11 +172,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .pin-save-wrapper {
   border-radius: 8px;
   color: #746d6a;
   background: #EEEEEE;
+  padding: 8px;
 }
 
 .pin-save-wrapper img {

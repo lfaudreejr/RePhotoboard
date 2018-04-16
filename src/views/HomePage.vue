@@ -1,5 +1,6 @@
 <template lang='pug'>
   v-container
+    v-progress-circular(indeterminate size="75" v-if="isLoading")
     masonry-grid(:pins='pins')
 </template>
 

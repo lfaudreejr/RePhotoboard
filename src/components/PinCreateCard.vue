@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.create-container-wrapper(@click.stop='showDialog = true')
+  div.pin-create-wrapper(@click.stop='showDialog = true')
     CreateCard
       span.grey--text(slot='title') Create Pin
 
@@ -25,5 +25,7 @@ export default {
 </script>
 
 <style scoped>
-
+.pin-create-wrapper {
+  width: 275px;
+}
 </style>

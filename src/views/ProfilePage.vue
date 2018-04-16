@@ -7,11 +7,11 @@
             p.display-3.grey--text.text--darken-1 {{user.username}}
       v-layout(row)
         v-flex(xs12 sm10 offset-sm2)
-          div
+          div.mx-auto
             v-btn(flat round :to="{ name: 'boards' }" color="primary") Boards
             v-btn(flat round :to="{ name: 'pins' }" color="primary") Pins
 
-    v-container.mx-auto
+    v-container
       transition(name="router-anim")
         router-view(:pins="pins", :boards="boards")
 

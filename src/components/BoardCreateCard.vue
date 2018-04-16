@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div.create-container-wrapper(@click.stop='showDialog = true')
+  div.board-create-container(@click.stop='showDialog = true')
     CreateCard
       span.grey--text(slot='title') Create Board
 
@@ -25,5 +25,7 @@ export default {
 </script>
 
 <style scoped>
-
+.board-create-container {
+  width: 301px;
+}
 </style>

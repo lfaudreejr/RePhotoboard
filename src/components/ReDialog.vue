@@ -5,7 +5,7 @@
       :max-width='width'
       @input='close'
     )
-      v-card.re-dialog-wrapper
+      v-card.re-dialog-wrapper.pa-3
         v-card-title(primary-title)
           slot(name='dialog-title')
         v-container

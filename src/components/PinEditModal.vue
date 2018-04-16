@@ -1,6 +1,6 @@
 <template lang="pug">
   v-layout(row justify-center)
-    v-dialog(:value="value" max-width="900" @input='close')
+    v-dialog(:value="value" max-width="650" @input='close')
       div.pin-edit-wrapper
         v-container
           v-toolbar(flat dense color="tertiary" @click.stop="close")
@@ -11,10 +11,10 @@
           v-divider
 
           v-layout(row wrap).pt-2
-            v-flex(xs12 sm12 md6).pa-2
+            v-flex(xs12 sm6).pa-2
               img(:src="pin.url" :alt="pin.title").d-block.mx-auto
 
-            v-flex(xs12 sm12 md6).pa-2
+            v-flex(xs12 sm6).pa-2
 
               v-form(@submit.prevent="submit" ref="form")
                 v-container

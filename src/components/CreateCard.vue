@@ -1,7 +1,7 @@
 <template lang='pug'>
-  div.card-wrapper.ml-0
-    div.card-item
-      div.card-inner
+  div.create-card.ml-0
+    div.create-card-item
+      div.create-card-inner
         div.card-inner-button
           svg.blue-button(role="img" viewBox="0 0 24 24")
             title
@@ -19,5 +19,32 @@ export default {
 </script>
 
 <style scoped>
+.create-card-item {
+  border-radius: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  cursor: pointer;
+}
+.create-card-item:hover {
+  background-color: #EEEEEE;
+}
+.create-card-title {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.create-card-inner {
+  border-radius: 8px;
+  height: 199px;
+  background-color: #BDBDBD;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  display: flex;
+}
 
 </style>

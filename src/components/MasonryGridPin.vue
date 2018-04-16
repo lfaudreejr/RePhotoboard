@@ -4,6 +4,7 @@
       re-pin-save-button.pin-save-btn-msry(
         v-show="active && isAuthenticated"
         absolute
+        icon
         :pin="pin"
         @click.native='openSaveModal'
       )
@@ -95,6 +96,10 @@ export default {
 </script>
 
 <style lang="scss">
+.pin-save-btn-msry {
+  left: 15px;
+}
+
 .masonrypin-wrapper {
   border-radius: 8px;
   padding: 8px;

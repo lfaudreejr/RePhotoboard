@@ -12,6 +12,9 @@
   margin-bottom: 70px;
 }
 /* Stamp for masonry grid */
+.container {
+  padding: 8px !important;
+}
 
 .stamp {
   position: relative;
@@ -19,7 +22,7 @@
 
 /* Content Card and Create Cards */
 .create-container-wrapper {
-  width: 275px;
+  width: 100%;
 }
 .card-wrapper {
   /* padding-left: 12px; */
@@ -55,6 +58,7 @@
   max-width: 100%;
   display: flex;
 }
+
 .card-inner-button {
   @include card-btn;
   @include border-radius(50%);
@@ -72,6 +76,7 @@
 .pin-save-btn {
   z-index: 100;
   top: 15px;
+  // left: 15px;
 }
 
 .pin-edit-btn {
@@ -82,6 +87,8 @@
 
 .form-wrapper {
   padding-top: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
   height: 100%;
 }
 

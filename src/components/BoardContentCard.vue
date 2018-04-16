@@ -1,6 +1,6 @@
 <template lang='pug'>
-  div
-    div.card-wrapper(@click.prevent='visitBoard()' @mouseenter="toggleEditButton" @mouseleave="toggleEditButton")
+  div.mx-auto
+    div.board-card-wrapper(@click.prevent='visitBoard()' @mouseenter="toggleEditButton" @mouseleave="toggleEditButton")
       div.card-item
         <!-- wrap in a router -->
         div.m-0.p-0
@@ -61,5 +61,8 @@ export default {
   z-index: 1000;
   position: relative;
   display: inline-block;
+}
+.board-card-wrapper {
+  width: 301px;
 }
 </style>
