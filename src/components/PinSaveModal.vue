@@ -97,7 +97,11 @@ export default {
       const userBoards = this.boards.map(b => { return b.board_pins })
       const flattened = _.flatten(userBoards)
 
-      if (flattened.every(p => p._id !== this.pin._id)) {
+      if (flattened.every(p => {
+        if (p) {
+          return p._id !== this.pin._id
+        }
+      })) {
         this.hasPin = false
       } else {
         this.hasPin = true
@@ -106,7 +110,8 @@ export default {
     saveToNewBoard () {
       const newBoard = {
         title: this.newBoardTitle,
-        description: this.newBoardDescription
+        description: this.newBoardDescription,
+        board_pins: []
       }
       if (this.$refs.savePinToNewBoardForm.validate()) {
         this.$store.dispatch(
@@ -114,14 +119,13 @@ export default {
           {
             title: newBoard.title,
             description: newBoard.description,
-            creator: this.user._id
+            creator: this.user._id,
+            board_pins: newBoard.board_pins
           }
         )
-          .then(data => {
-            return data.data
-          })
           .then((board) => {
-            this.savePin(board)
+            console.log(board)
+            this.savePin(board.id)
           })
       }
     },
@@ -145,12 +149,14 @@ export default {
       this.$emit('input')
     },
     savePin (board) {
-      const boardFound = _.filter(this.boards, (v) => v.id === board)
+      const boardFound = _.filter(this.boards, (v) => {
+        return v.id.toString() === board
+      })
       this.dispatchSave(boardFound[0])
     },
     dispatchSave (board) {
       let newPins = []
-      if (board.board_pins) {
+      if (board && board.board_pins) {
         newPins = board.board_pins.map(x => x)
       }
       newPins.push(this.pin._id)

@@ -55,7 +55,9 @@ export default {
           }
         )
           .then(() => {
-            this.close()
+            this.$store.dispatch('user/getUser').then(() => {
+              this.close()
+            })
           }).catch(err => {
             console.error(err)
             this.close()

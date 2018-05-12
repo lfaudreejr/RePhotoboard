@@ -2,7 +2,6 @@ import { user, boards } from '@/utils/api/index'
 import {
   mapGetData,
   getNewObject,
-  getJWT,
   handleError,
   flatten,
   uniqueById,
@@ -21,8 +20,8 @@ const setUserPins = (context, pins) => {
   context.commit('USER_PINS_UPDATED', pins)
 }
 
-const getUser = ({context, dispatch}, jwt) => {
-  return user['getUserData'](jwt)
+const getUser = ({commit, dispatch}) => {
+  return user['getUserData']()
     .then(data => {
       const userData = getNewObject({
         _id: data._id,
@@ -35,14 +34,14 @@ const getUser = ({context, dispatch}, jwt) => {
       const userPins = data.pins
 
       dispatch('setUser', userData)
-      dispatch('loadUserBoards', { boards: userBoards, pins: userPins, jwt: jwt })
+      dispatch('loadUserBoards', { boards: userBoards, pins: userPins })
     }).catch(handleError)
 }
 
-const loadUserBoards = ({context, dispatch}, payload) => {
+const loadUserBoards = ({commit, dispatch}, payload) => {
   if (Array.isArray(payload.boards)) {
     let promiseArray = payload.boards.map(board => {
-      return boards['getUserBoards'](board._id, payload.jwt)
+      return boards['getUserBoards'](board._id, payload)
     })
 
     let retreivedBoards = Promise.all(promiseArray)
@@ -60,33 +59,33 @@ const loadUserBoards = ({context, dispatch}, payload) => {
   }
 }
 
-const createBoard = ({context, dispatch}, payload) => {
-  const jwt = getJWT()
-
-  return boards['postBoard'](payload, jwt)
+const createBoard = ({commit, dispatch}, payload) => {
+  return boards['postBoard'](payload)
     .then((results) => {
-      dispatch('getUser', jwt)
-      return results
-    }).catch(handleError)
+      const board = results.data
+      if (!board.board_pins) {
+        board.board_pins = []
+      }
+      commit('UPDATE_BOARDS', board)
+      // dispatch('getUser')
+      return board
+    })
+    .catch(handleError)
 }
 
 const updateBoard = ({context, dispatch}, payload) => {
-  const jwt = getJWT()
-
-  return boards['putBoard'](payload, jwt)
+  return boards['putBoard'](payload)
 
     .then((results) => {
-      dispatch('getUser', jwt)
+      dispatch('getUser')
       return results
     }).catch(handleError)
 }
 
 const deleteBoard = ({context, dispatch}, payload) => {
-  const jwt = getJWT()
-
-  return boards['delBoard'](payload._id, jwt)
+  return boards['delBoard'](payload._id)
     .then((data) => {
-      dispatch('getUser', jwt)
+      dispatch('getUser')
     })
     .catch(handleError)
 }

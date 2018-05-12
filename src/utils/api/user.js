@@ -1,8 +1,10 @@
 import {USER} from './connections'
-import {getData, handleError} from '@/utils/utils'
+import {getData, handleError, getJWT} from '@/utils/utils'
 
 export default {
-  getUserData (jwt) {
+  getUserData () {
+    const jwt = getJWT()
+
     return USER({
       method: 'GET',
       url: '/me',

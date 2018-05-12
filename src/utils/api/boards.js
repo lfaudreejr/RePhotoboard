@@ -1,7 +1,9 @@
 import {API} from './connections'
+import {getJWT} from '@/utils/utils'
 
 export default {
-  getUserBoards (id, jwt) {
+  getUserBoards (id) {
+    const jwt = getJWT()
     return API({
       method: 'GET',
       url: `/boards/${id}`,
@@ -9,7 +11,8 @@ export default {
     })
   },
 
-  postBoard (payload, jwt) {
+  postBoard (payload) {
+    const jwt = getJWT()
     return API({
       method: 'POST',
       url: '/boards',
@@ -18,7 +21,8 @@ export default {
     })
   },
 
-  putBoard (payload, jwt) {
+  putBoard (payload) {
+    const jwt = getJWT()
     return API({
       method: 'PUT',
       url: '/boards/' + payload._id,
@@ -27,7 +31,8 @@ export default {
     })
   },
 
-  delBoard (id, jwt) {
+  delBoard (id) {
+    const jwt = getJWT()
     return API({
       method: 'DELETE',
       url: '/boards/' + id,

@@ -20,7 +20,7 @@ export default {
   props: {
     boards: {
       type: Array,
-      default: []
+      default: () => []
     }
   }
 }
