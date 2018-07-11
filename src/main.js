@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import VueDisqus from 'vue-disqus'
 import axios from 'axios'
 import App from './App'
 import router from './router'
@@ -14,6 +15,7 @@ import ReDialog from '@/components/ReDialog'
 import RePinSaveButton from '@/components/RePinSaveButton'
 import ReSnackbar from '@/components/ReSnackbar'
 
+Vue.use(VueDisqus)
 Vue.use(Vuetify, {
   theme: {
     primary: '#1abc9c',
