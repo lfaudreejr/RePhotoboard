@@ -23,6 +23,12 @@
                 p saved by: {{pin.saved_by.username}}
                 p {{pin.description}}
 
+    v-layout(row)
+      v-flex(xs10 offset-xs1 sm10 offset-sm1 md8 offset-md2 lg6 offset-lg3)
+        div.pin-wrapper.pa-2.mt-3
+          div.comments
+            vue-disqus(shortname="rephotoboard" :identifier="pinId")
+
     PinSaveModal(v-model="showModal" :pin="pin")
 </template>
 
@@ -41,6 +47,9 @@ export default {
     }
   },
   computed: {
+    pinId () {
+      return this.$route.params.pin
+    },
     ...mapGetters({
       pin: 'pins/pin',
       isAuthenticated: 'auth/isAuthenticated'
@@ -51,12 +60,15 @@ export default {
   },
   methods: {
     fetchData () {
-      this.$store.dispatch('pins/getPin', this.$route.params.pin).then(() => {
-        this.loading = false
-      }).catch(err => {
-        this.loading = false
-        console.error(err)
-      })
+      this.$store
+        .dispatch('pins/getPin', this.$route.params.pin)
+        .then(() => {
+          this.loading = false
+        })
+        .catch(err => {
+          this.loading = false
+          console.error(err)
+        })
     },
     openModal () {
       this.showModal = !this.showModal
@@ -69,8 +81,8 @@ export default {
 .pin-wrapper {
   border-radius: 8px;
   color: #746d6a;
-  background: #EEEEEE;
-  padding: 9
+  background: #eeeeee;
+  padding: 9;
 }
 
 .pin-img-container {
@@ -80,5 +92,4 @@ export default {
 .pin-img-container img {
   border-radius: 8px;
 }
-
 </style>

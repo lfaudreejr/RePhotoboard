@@ -10,13 +10,14 @@
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
-    "lint": "eslint --ext .js,.vue src test/unit/specs"
+    "lint": "eslint --ext .js,.vue src test/unit/specs --fix"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "lodash": "^4.17.5",
     "packery": "^2.1.1",
     "vue": "^2.5.2",
+    "vue-disqus": "^3.0.3",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.0",
     "vuex": "^3.0.1"

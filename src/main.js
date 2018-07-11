@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
+import VueDisqus from 'vue-disqus'
 import axios from 'axios'
 import App from './App'
 import router from './router'
@@ -14,16 +15,20 @@ import ReDialog from '@/components/ReDialog'
 import RePinSaveButton from '@/components/RePinSaveButton'
 import ReSnackbar from '@/components/ReSnackbar'
 
-Vue.use(Vuetify, { theme: {
-  primary: '#1abc9c',
-  secondary: '#16a085',
-  tertiary: '#EEEEEE',
-  accent: '#f1c40f',
-  error: '#f44336',
-  warning: '#ffeb3b',
-  info: '#2196f3',
-  success: '#4caf50'
-}})
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#1abc9c',
+    secondary: '#16a085',
+    tertiary: '#EEEEEE',
+    accent: '#f1c40f',
+    error: '#f44336',
+    warning: '#ffeb3b',
+    info: '#2196f3',
+    success: '#4caf50'
+  }
+})
+
+Vue.use(VueDisqus)
 
 Vue.component('social-button', SocialButton)
 Vue.component('re-dialog', ReDialog)
