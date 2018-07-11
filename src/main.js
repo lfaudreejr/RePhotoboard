@@ -2,7 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import VueDisqus from 'vue-disqus'
 import axios from 'axios'
 import App from './App'
 import router from './router'
@@ -27,8 +26,6 @@ Vue.use(Vuetify, {
     success: '#4caf50'
   }
 })
-
-Vue.use(VueDisqus)
 
 Vue.component('social-button', SocialButton)
 Vue.component('re-dialog', ReDialog)
