@@ -116,6 +116,11 @@ export default {
       this.$store.dispatch('pins/deletePin', {
         _id: this.pin._id
       }).then((resp) => {
+        this.$bus.$emit('snackbar', {
+          message: 'Pin deleted.',
+          show: true,
+          color: 'success'
+        })
         this.close()
         this.gotoUserProfile()
       }).catch((err) => {
@@ -137,6 +142,11 @@ export default {
           boards: this.pin.boards,
           pin_comments: this.pin.pin_comments
         }).then(() => {
+          this.$bus.$emit('snackbar', {
+            message: 'Pin saved!',
+            show: true,
+            color: 'success'
+          })
           this.close()
           this.gotoUserProfile()
         }).catch((err) => {

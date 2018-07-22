@@ -1,6 +1,7 @@
 <template lang='pug'>
-  MasonryGrid(:pins="pins")
+  div
     PinCreateCard(slot="stamp")
+    MasonryGrid(:pins="pins")
 </template>
 
 <script>

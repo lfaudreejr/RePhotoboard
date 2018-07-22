@@ -4,6 +4,9 @@
     transition(name='router-anim' mode='out-in')
       router-view.mt-5.mb-5
     ReFooter
+
+    v-snackbar(bottom v-model="snackbar.show" :color="snackbar.color") {{snackbar.message}}
+      v-btn(@click.native="snackbar.show = false" dark flat) Close
 </template>
 
 <script>
@@ -12,9 +15,19 @@ import ReHeader from '@/components/ReHeader'
 import ReFooter from '@/components/ReFooter'
 
 export default {
+  name: 'App',
   components: {
     ReHeader,
     ReFooter
+  },
+  data () {
+    return {
+      snackbar: {
+        message: '',
+        color: '',
+        show: false
+      }
+    }
   },
   computed: {
     ...mapGetters({
@@ -22,7 +35,14 @@ export default {
       authStatus: 'auth/authStatus'
     })
   },
-  name: 'App'
+  created () {
+    this.$bus.$on('snackbar', ($event) => {
+      console.log($event)
+      this.snackbar.message = $event.message
+      this.snackbar.show = $event.show
+      this.snackbar.color = $event.color
+    })
+  }
 }
 </script>
 

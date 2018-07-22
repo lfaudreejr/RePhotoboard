@@ -74,6 +74,21 @@ export default {
       if (this.$refs.loginForm.validate()) {
         this.$store.dispatch('auth/LOGIN_REQUEST', {email: this.username.trim(), password: this.password.trim()})
           .then(() => {
+            if (this.authStatus === 'error') {
+              this.clearForm()
+              localStorage.removeItem('token')
+              this.$bus.$emit('snackbar', {
+                message: 'Password or Username incorrect.',
+                show: true,
+                color: 'error'
+              })
+              return
+            }
+            this.$bus.$emit('snackbar', {
+              message: 'Logged in!',
+              show: true,
+              color: 'success'
+            })
             this.$router.push({path: '/'})
           })
           .catch((err) => {
@@ -82,6 +97,11 @@ export default {
             localStorage.removeItem('token')
             console.error(err)
             this.$store.commit('LOGIN_ERROR')
+            this.$bus.$emit('snackbar-show', {
+              message: this.error,
+              show: true,
+              color: 'error'
+            })
             setTimeout(() => { this.error = '' }, 1500)
           })
       }

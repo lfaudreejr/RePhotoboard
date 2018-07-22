@@ -69,7 +69,11 @@ export default {
   computed: {
     isUserPin () {
       if (this.user) {
-        return this.pin.saved_by === this.user._id
+        if (this.pin.saved_by._id) {
+          return this.pin.saved_by._id === this.user._id
+        } else {
+          return this.pin.saved_by === this.user._id
+        }
       }
       return false
     },

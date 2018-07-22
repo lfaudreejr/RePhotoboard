@@ -1,5 +1,5 @@
 import { auth } from '@/utils/api/index'
-import { setJWT, getData, extractJWT, handleError } from '@/utils/utils'
+import { setJWT, getData, extractJWT } from '@/utils/utils'
 
 export default {
 
@@ -12,8 +12,12 @@ export default {
 
         dispatch('user/getUser', jwt, {root: true})
         commit('LOGIN_SUCCESS', jwt)
+        dispatch('snackbar/setSnackbar', { message: 'Registered!', color: 'success' }, {root: true})
       })
-      .catch(handleError)
+      .catch((err) => {
+        commit('LOGIN_ERROR')
+        console.error(err)
+      })
   },
   LOGIN_REQUEST ({ commit, dispatch }, user) {
     return auth['loginUser'](user)
@@ -22,11 +26,13 @@ export default {
       .then(jwt => {
         setJWT(jwt)
 
-        dispatch('user/getUser', jwt, {root: true}).then(() => {
-          commit('LOGIN_SUCCESS', jwt)
-        })
+        commit('LOGIN_SUCCESS', jwt)
+        dispatch('user/getUser', jwt, {root: true})
       })
-      .catch(handleError)
+      .catch((err) => {
+        commit('LOGIN_ERROR')
+        console.error(err)
+      })
   },
   OAUTH_LOGIN ({ commit, dispatch }, payload) {
     return auth['loginOAuth'](payload)
@@ -36,10 +42,12 @@ export default {
         setJWT(jwt)
 
         dispatch('user/getUser', jwt, {root: true})
-
         commit('LOGIN_SUCCESS', jwt)
       })
-      .catch(handleError)
+      .catch((err) => {
+        commit('LOGIN_ERROR')
+        console.error(err)
+      })
   },
   LOGOUT ({ commit, dispatch }) {
     localStorage.clear()

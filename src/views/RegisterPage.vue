@@ -100,9 +100,19 @@ export default {
         this.$store.dispatch('auth/REGISTER_REQUEST', {
           username: this.username, email: this.email, password: this.password})
           .then((response) => {
+            this.$bus.$emit('snackbar', {
+              message: 'Registration successful!',
+              show: true,
+              color: 'error'
+            })
             this.$router.push('/')
           }).catch((err) => {
             this.error = err.response.data.message
+            this.$bus.$emit('snackbar', {
+              message: this.error,
+              show: true,
+              color: 'error'
+            })
             this.clearForm()
             console.error(err)
             setTimeout(() => { this.error = '' }, 1000)

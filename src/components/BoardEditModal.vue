@@ -103,6 +103,11 @@ export default {
       this.$store.dispatch('user/deleteBoard', {
         _id: this.board._id
       }).then((resp) => {
+        this.$bus.$emit('snackbar', {
+          message: 'Board deleted.',
+          show: true,
+          color: 'success'
+        })
         this.close()
         this.gotoUserProfile()
       }).catch((err) => {
@@ -124,6 +129,11 @@ export default {
           creator: this.user._id,
           board_pins: this.board.board_pins
         }).then(() => {
+          this.$bus.$emit('snackbar', {
+            message: 'Board saved!',
+            show: true,
+            color: 'success'
+          })
           this.close()
           this.gotoUserProfile()
         }).catch((err) => {

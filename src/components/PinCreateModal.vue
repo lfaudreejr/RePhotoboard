@@ -71,6 +71,11 @@ export default {
         )
           .then((pin) => {
             this.close()
+            this.$bus.$emit('snackbar', {
+              message: 'Pin created!',
+              show: true,
+              color: 'success'
+            })
             this.$router.push({path: `/pin/${pin._id}`})
           })
           .catch(err => {

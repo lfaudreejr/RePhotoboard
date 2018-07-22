@@ -94,12 +94,13 @@
 
 .re-form {
   border: 1px solid #16a085;
+  width: 300px;
   @include border-radius(8px);
 }
 
 .center-screen {
   position: fixed;
-  left: 50%;
+  left: 51%;
   top: 50%;
   transform: translate(-50%, -50%);
 }

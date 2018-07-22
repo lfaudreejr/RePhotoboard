@@ -37,9 +37,19 @@ export default {
   methods: {
     async logout () {
       this.$store.dispatch('auth/LOGOUT').then(() => {
+        this.$bus.$emit('snackbar', {
+          message: 'Logged out!',
+          show: true,
+          color: 'success'
+        })
         this.$router.push('/login')
       }).catch(err => {
         console.error(err)
+        this.$bus.$emit('snackbar', {
+          message: 'There was an error',
+          show: true,
+          color: 'success'
+        })
         this.$router.push('/login')
       })
     },

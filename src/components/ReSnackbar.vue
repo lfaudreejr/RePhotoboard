@@ -5,8 +5,10 @@
     :multi-line="mode === 'multi-line'"
     :verticle="mode === 'verticle'"
     :value="value"
+    top
   )
-    slot(name="message")
+    slot
+    v-btn(dark flat @click.native="close") Close
 </template>
 
 <script>
@@ -27,6 +29,11 @@ export default {
     value: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    close () {
+      this.$store.dispatch('snackbar/setSnackbar', {message: '', color: ''})
     }
   }
 }

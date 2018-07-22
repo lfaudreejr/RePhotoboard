@@ -70,7 +70,6 @@ const createBoard = ({commit, dispatch}, payload) => {
       // dispatch('getUser')
       return board
     })
-    .catch(handleError)
 }
 
 const updateBoard = ({context, dispatch}, payload) => {

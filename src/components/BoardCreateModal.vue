@@ -55,11 +55,21 @@ export default {
           }
         )
           .then(() => {
+            this.$bus.$emit('snackbar', {
+              message: 'Board created!',
+              show: true,
+              color: 'success'
+            })
             this.$store.dispatch('user/getUser').then(() => {
               this.close()
             })
           }).catch(err => {
             console.error(err)
+            this.$bus.$emit('snackbar', {
+              message: 'Error: ' + err.response.data.message,
+              show: true,
+              color: 'error'
+            })
             this.close()
           })
       }
